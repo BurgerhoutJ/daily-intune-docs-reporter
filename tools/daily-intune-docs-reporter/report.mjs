@@ -7,7 +7,7 @@
  * (MicrosoftDocs/memdocs), then publishes it as a daily GitHub issue.
  *
  * Modeled after BakkerJan/entra-docs-daily-reporter-example, adapted for
- * Intune, Configuration Manager, Autopilot, and Endpoint Security content.
+ * Intune, Windows Autopilot, and Endpoint Security content.
  *
  * Usage:
  *   node report.mjs                # generate report files only
@@ -49,12 +49,6 @@ const PUBLISH_SOURCES = [
     pathPrefix: 'intune/',
     learnBase: 'https://learn.microsoft.com/en-us/mem/intune/',
     label: 'Intune',
-  },
-  {
-    repo: 'MicrosoftDocs/memdocs',
-    pathPrefix: 'configmgr/',
-    learnBase: 'https://learn.microsoft.com/en-us/mem/configmgr/',
-    label: 'Configuration Manager',
   },
   {
     repo: 'MicrosoftDocs/memdocs',
