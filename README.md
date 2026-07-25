@@ -62,17 +62,17 @@ or different settings.
 
 ## Repo Structure
 
-- `.github/workflows/intune-docs-daily-reporter.yml` - Schedule and
+- `.github/workflows/daily-intune-docs-reporter.yml` - Schedule and
   publishing workflow
-- `tools/intune-docs-reporter/report.mjs` - Report generator
-- `tools/intune-docs-reporter/README.md` - Extended configuration guide
-- `docs/intune-docs-daily-reporter-publish.md` - Copy/paste blog section
+- `tools/daily-intune-docs-reporter/report.mjs` - Report generator
+- `tools/daily-intune-docs-reporter/README.md` - Extended configuration guide
+- `docs/daily-intune-docs-reporter-publish.md` - Copy/paste blog section
 
 ## Manual Test
 
 ```bash
 gh workflow run "Daily Intune Docs Reporter" --repo <owner>/<repo>
-gh run list --workflow "intune-docs-daily-reporter.yml" --repo <owner>/<repo> --limit 1
+gh run list --workflow "daily-intune-docs-reporter.yml" --repo <owner>/<repo> --limit 1
 ```
 
 ## Customize
@@ -81,7 +81,7 @@ gh run list --workflow "intune-docs-daily-reporter.yml" --repo <owner>/<repo> --
 - Timezone used for the report window, timestamps, and issue titles:
   `TZ_REPORT` (default `Europe/Amsterdam`), set in the workflow's `env:` block
 - Tracked repos/folders: edit the `PUBLISH_SOURCES` list at the top of
-  `tools/intune-docs-reporter/report.mjs`
+  `tools/daily-intune-docs-reporter/report.mjs`
 
 ## Notes
 

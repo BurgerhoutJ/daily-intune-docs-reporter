@@ -1,4 +1,4 @@
-# intune-docs-reporter
+# daily-intune-docs-reporter
 
 `report.mjs` collects documentation PRs merged into `MicrosoftDocs/memdocs`
 (Intune, Configuration Manager, Windows Autopilot) within a strict window,
