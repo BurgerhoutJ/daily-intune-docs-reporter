@@ -1,0 +1,43 @@
+name: Daily Intune Docs Reporter
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+
+    env:
+      TZ_REPORT: Europe/Amsterdam
+      LOOKBACK_HOURS: "24"
+      OUTPUT_DIR: out
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "20"
+
+      - name: Generate and publish report
+        run: node report.mjs --publish
+        working-directory: tools/intune-docs-reporter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload report artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: intune-docs-daily-report
+          path: |
+            tools/intune-docs-reporter/out/report.html
+            tools/intune-docs-reporter/out/report.md
+            tools/intune-docs-reporter/out/report.json
