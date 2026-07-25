@@ -1,4 +1,4 @@
-# Intune Docs Daily Reporter
+# Daily Intune Docs Reporter
 
 Want a daily heads-up when Microsoft changes Intune, Configuration Manager, or
 Windows Autopilot documentation - without babysitting an RSS reader?

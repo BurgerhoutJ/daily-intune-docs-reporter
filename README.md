@@ -1,4 +1,4 @@
-# Intune Docs Daily Reporter
+# Daily Intune Docs Reporter
 
 Daily GitHub Actions report for Microsoft Intune / endpoint management
 documentation updates, in a strict 24-hour window.
@@ -31,7 +31,7 @@ or different settings.
 1. Fork or clone this repository.
 2. In GitHub, open **Settings** → **General** → **Features** and make sure
    **Issues** is enabled for the repository.
-3. Open **Actions** and run **Intune Docs Daily Reporter** with
+3. Open **Actions** and run **Daily Intune Docs Reporter** with
    **Run workflow**.
 4. Open the created issue titled `Daily Intune Docs PR Report - YYYY-MM-DD`.
 5. If you forked into your own account, you're done - GitHub automatically
@@ -71,7 +71,7 @@ or different settings.
 ## Manual Test
 
 ```bash
-gh workflow run "Intune Docs Daily Reporter" --repo <owner>/<repo>
+gh workflow run "Daily Intune Docs Reporter" --repo <owner>/<repo>
 gh run list --workflow "intune-docs-daily-reporter.yml" --repo <owner>/<repo> --limit 1
 ```
 

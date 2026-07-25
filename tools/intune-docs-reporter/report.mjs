@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Intune Docs Daily Reporter
+ * Daily Intune Docs Reporter
  * -------------------------------------------------------------------------
  * Generates a strict 24-hour (configurable) report of documentation changes
  * merged into Microsoft's public Intune / endpoint management docs repo
