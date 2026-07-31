@@ -3,14 +3,14 @@
 Hey there,
 
 As an Intune consultant, I need to know when Microsoft changes something in
-the Intune or Windows Autopilot documentation - ideally before a customer
-asks me about it. I got tired of babysitting an RSS reader for that, so I
-built this instead. Now I just get an email once a day.
+the Intune, Windows Autopilot, or Windows 365 documentation - ideally before
+a customer asks me about it. I got tired of babysitting an RSS reader for
+that, so I built this instead. Now I just get an email once a day.
 
 Here's what it does: once a day, at 06:00 UTC, a GitHub Actions workflow
-collects everything merged into `MicrosoftDocs/memdocs` (Intune, Windows
-Autopilot) and posts it as a formatted GitHub issue, so GitHub's own
-notification emails handle delivery for me.
+scrapes Microsoft's own "What's new" pages for Intune, Windows Autopilot,
+and Windows 365, and posts anything new as a formatted GitHub issue, so
+GitHub's own notification emails handle delivery for me.
 
 A few things I made sure of along the way:
 
@@ -55,16 +55,25 @@ work for you, fork it and run your own copy - see below.
 
 - A strict 24-hour report window - no multi-day section cluttering the
   issue body
-- Data source: `MicrosoftDocs/memdocs` - the `intune/` and `autopilot/`
-  folders (Intune and Windows Autopilot documentation)
-- Categories derived automatically from each doc's folder path (Device
-  Configuration, Device Security, Apps, Endpoint Security, Enrollment,
-  Autopilot, and more) - I didn't want a fixed category list to maintain by
-  hand every time Microsoft reorganizes docs
+- Three products tracked, each via Microsoft's own public "What's new"
+  page rather than raw doc PRs - none of these product lines had a source
+  that PR-search could reliably cover (Intune/Autopilot content doesn't map
+  cleanly to feature-level announcements, and Windows 365's docs repo is
+  private), so a "What's new" page turned out to be the more accurate
+  signal across the board:
+  - **Intune** - grouped by weekly release, then by area (Device
+    Configuration, Device Security, App Management, and more)
+  - **Windows Autopilot** - each item carries its own "Date added"/"Date
+    updated", so this one's genuinely daily-precise
+  - **Windows 365** (Enterprise, Business, Link, Agents) - grouped by the
+    week Microsoft published it
+- Because Intune and Windows 365 items are dated by "Week of ...", they
+  only surface in the report on the day their week starts - in practice
+  that's roughly-weekly, not daily, even though the job itself runs every
+  day
 - A lean, non-tabular digest instead of a Markdown table: each item is a
-  linked title (Microsoft Learn page, or the GitHub source if it's not yet
-  live on Learn) plus one meta line with the local timestamp, how it was
-  published, and the source PR
+  linked title (straight to that item's anchor on the Learn page) plus one
+  meta line with when it was added/updated/published
 - Uploaded artifacts every run: `html` (a full data table, if you want one),
   `md` (the digest - this becomes the issue body), and `json`
   (machine-readable metadata, including the exact window bounds)
@@ -90,8 +99,8 @@ gh run list --workflow "daily-intune-docs-reporter.yml" --repo <owner>/<repo> --
 - Timezone used for the report window, timestamps, and issue titles:
   `TZ_REPORT` (default `Europe/Amsterdam`, since that's where I live), set
   in the workflow's `env:` block
-- Tracked repos/folders: edit the `PUBLISH_SOURCES` list at the top of
-  `tools/daily-intune-docs-reporter/report.mjs`
+- Tracked "What's new" pages: edit the `WHATS_NEW_SOURCES` list at the top
+  of `tools/daily-intune-docs-reporter/report.mjs`
 
 ## Notes
 
@@ -125,10 +134,9 @@ This is currently a **manual** repository setting; it changes
 repository-level settings, so it's not something this workflow can
 reliably automate with the default `GITHUB_TOKEN`.
 
-### Rate limiting / empty reports
+### A source page fails to fetch
 
-Unauthenticated GitHub Search API calls are capped at 10 requests/minute and
-60/hour. Running under GitHub Actions with the built-in `secrets.GITHUB_TOKEN`
-(already wired up in the workflow) uses the much higher authenticated
-limits, so this should only bite you during local testing without a token
-set.
+If one of the "What's new" pages is temporarily unreachable, the run logs
+the failure and skips just that page rather than failing the whole report -
+you'll see items from the other pages as usual, just missing that one
+product for the day.
