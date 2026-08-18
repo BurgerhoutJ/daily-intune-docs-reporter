@@ -21,7 +21,7 @@ A few things I made sure of along the way:
 - If the daily issue already exists, the workflow adds a refresh comment
   with the latest report, so a re-run doesn't just send an empty email.
 
-Modeled after [BakkerJan/entra-docs-daily-reporter-example](https://github.com/BakkerJan/entra-docs-daily-reporter-example) - same idea, just aimed added Intune and Autopilot to this.
+Modeled after [BakkerJan/entra-docs-daily-reporter-example](https://github.com/BakkerJan/entra-docs-daily-reporter-example) - same idea, just added Intune and Autopilot to this.
 
 ## Just Want the Daily Email?
 
