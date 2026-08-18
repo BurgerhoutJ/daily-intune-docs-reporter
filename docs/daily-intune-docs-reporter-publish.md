@@ -1,17 +1,16 @@
-# Daily Intune Docs Reporter
+# Daily Intune & Entra Docs Reporter
 
 Want a daily heads-up when Microsoft changes Intune, Windows Autopilot, or
-Windows 365 documentation - without babysitting an RSS reader?
+Microsoft Entra documentation - without babysitting an RSS reader?
 
 This repo runs a small GitHub Actions workflow once a day that:
 
-1. Scrapes Microsoft's own "What's new" pages for Intune, Windows Autopilot,
-   and Windows 365, in the last strict 24-hour window (midnight to midnight,
-   no overlap, no duplicates on rerun).
-2. Groups the results by product and area (Device Configuration, Endpoint
-   Security, App Management, and more) automatically - nothing to maintain
-   by hand.
-3. Publishes a digest as a GitHub issue titled `Daily Intune Docs PR Report -
+1. Checks the git diffs on Microsoft's "What's new" markdown source files
+   for Intune, Windows Autopilot, and Microsoft Entra, in the last strict
+   24-hour window (midnight to midnight, no overlap, no duplicates on rerun).
+2. Extracts newly added headings and links each item to the commit diff on
+   GitHub, so you can see exactly what changed.
+3. Publishes a digest as a GitHub issue titled `Daily Intune & Entra Report -
    YYYY-MM-DD`, so you get it as a normal GitHub notification email.
 
 **Just want the email?** Click **Watch** on this repo → **Custom** → check

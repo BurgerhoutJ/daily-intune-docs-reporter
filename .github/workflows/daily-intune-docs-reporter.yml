@@ -1,4 +1,4 @@
-name: Daily Intune Docs Reporter
+name: Daily Intune & Entra Docs Reporter
 
 on:
   schedule:

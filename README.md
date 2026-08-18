@@ -1,4 +1,4 @@
-# Daily Intune Docs Reporter
+# Daily Intune & Entra Docs Reporter
 
 Hey there,
 
@@ -8,9 +8,10 @@ a customer asks me about it. I got tired of babysitting an RSS reader for
 that, so I built this instead. Now I just get an email once a day.
 
 Here's what it does: once a day, at 06:00 UTC, a GitHub Actions workflow
-scrapes Microsoft's own "What's new" pages for Intune, Windows Autopilot,
-and Windows 365, and posts anything new as a formatted GitHub issue, so
-GitHub's own notification emails handle delivery for me.
+checks the git diffs on Microsoft's "What's new" markdown source files for
+Intune, Windows Autopilot, and Microsoft Entra, and posts anything new as a
+formatted GitHub issue, so GitHub's own notification emails handle delivery
+for me.
 
 A few things I made sure of along the way:
 
@@ -20,7 +21,7 @@ A few things I made sure of along the way:
 - If the daily issue already exists, the workflow adds a refresh comment
   with the latest report, so a re-run doesn't just send an empty email.
 
-Modeled after [BakkerJan/entra-docs-daily-reporter-example](https://github.com/BakkerJan/entra-docs-daily-reporter-example) - same idea, just aimed at Intune instead of Entra.
+Modeled after [BakkerJan/entra-docs-daily-reporter-example](https://github.com/BakkerJan/entra-docs-daily-reporter-example) - same idea, just aimed added Intune and Autopilot to this.
 
 ## Just Want the Daily Email?
 
@@ -40,9 +41,9 @@ work for you, fork it and run your own copy - see below.
 1. Fork or clone this repository.
 2. In GitHub, open **Settings** → **General** → **Features** and make sure
    **Issues** is enabled for the repository.
-3. Open **Actions** and run **Daily Intune Docs Reporter** with
+3. Open **Actions** and run **Daily Intune & Entra Docs Reporter** with
    **Run workflow**.
-4. Open the created issue titled `Daily Intune Docs PR Report - YYYY-MM-DD`.
+4. Open the created issue titled `Daily Intune & Entra Report - YYYY-MM-DD`.
 5. If you forked into your own account, you're already done - GitHub
    automatically watches repos you own, and that's what actually delivers
    the email, not the per-issue **Subscribe** button (a new issue is
@@ -55,25 +56,15 @@ work for you, fork it and run your own copy - see below.
 
 - A strict 24-hour report window - no multi-day section cluttering the
   issue body
-- Three products tracked, each via Microsoft's own public "What's new"
-  page rather than raw doc PRs - none of these product lines had a source
-  that PR-search could reliably cover (Intune/Autopilot content doesn't map
-  cleanly to feature-level announcements, and Windows 365's docs repo is
-  private), so a "What's new" page turned out to be the more accurate
-  signal across the board:
-  - **Intune** - grouped by weekly release, then by area (Device
-    Configuration, Device Security, App Management, and more)
-  - **Windows Autopilot** - each item carries its own "Date added"/"Date
-    updated", so this one's genuinely daily-precise
-  - **Windows 365** (Enterprise, Business, Link, Agents) - grouped by the
-    week Microsoft published it
-- Because Intune and Windows 365 items are dated by "Week of ...", they
-  only surface in the report on the day their week starts - in practice
-  that's roughly-weekly, not daily, even though the job itself runs every
-  day
+- Three products tracked by checking git diffs on their source markdown
+  files in the public `MicrosoftDocs` repos:
+  - **Intune** — `MicrosoftDocs/memdocs` / `intune/whats-new/index.md`
+  - **Windows Autopilot** — `MicrosoftDocs/memdocs` / `autopilot/whats-new.md`
+  - **Microsoft Entra** — `MicrosoftDocs/entra-docs` / `docs/fundamentals/whats-new.md`
+- Each report item links directly to the docs page anchor *and* the commit
+  diff on GitHub, so you can see exactly what changed
 - A lean, non-tabular digest instead of a Markdown table: each item is a
-  linked title (straight to that item's anchor on the Learn page) plus one
-  meta line with when it was added/updated/published
+  linked title plus one meta line with the commit date
 - Uploaded artifacts every run: `html` (a full data table, if you want one),
   `md` (the digest - this becomes the issue body), and `json`
   (machine-readable metadata, including the exact window bounds)
@@ -89,7 +80,7 @@ work for you, fork it and run your own copy - see below.
 ## Manual Test
 
 ```bash
-gh workflow run "Daily Intune Docs Reporter" --repo <owner>/<repo>
+gh workflow run "Daily Intune & Entra Docs Reporter" --repo <owner>/<repo>
 gh run list --workflow "daily-intune-docs-reporter.yml" --repo <owner>/<repo> --limit 1
 ```
 
@@ -99,7 +90,7 @@ gh run list --workflow "daily-intune-docs-reporter.yml" --repo <owner>/<repo> --
 - Timezone used for the report window, timestamps, and issue titles:
   `TZ_REPORT` (default `Europe/Amsterdam`, since that's where I live), set
   in the workflow's `env:` block
-- Tracked "What's new" pages: edit the `WHATS_NEW_SOURCES` list at the top
+- Tracked sources: edit the `WHATS_NEW_SOURCES` list at the top
   of `tools/daily-intune-docs-reporter/report.mjs`
 
 ## Notes
@@ -134,9 +125,9 @@ This is currently a **manual** repository setting; it changes
 repository-level settings, so it's not something this workflow can
 reliably automate with the default `GITHUB_TOKEN`.
 
-### A source page fails to fetch
+### A source repo fails to respond
 
-If one of the "What's new" pages is temporarily unreachable, the run logs
-the failure and skips just that page rather than failing the whole report -
-you'll see items from the other pages as usual, just missing that one
-product for the day.
+If one of the source repos is temporarily unreachable or returns an error,
+the run logs the failure and skips just that source rather than failing the
+whole report - you'll see items from the other sources as usual, just
+missing that one product for the day.

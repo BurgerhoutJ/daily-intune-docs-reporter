@@ -1,34 +1,24 @@
 #!/usr/bin/env node
 /**
- * Daily Intune Docs Reporter
+ * Daily Intune & Entra Docs Reporter
  * -------------------------------------------------------------------------
- * Generates a strict 24-hour (configurable) report of new items from
- * Microsoft's own "What's new" pages for Intune, Windows Autopilot, and
- * Windows 365, then publishes it all as a daily GitHub issue.
+ * Generates a strict 24-hour (configurable) report of changes to Microsoft's
+ * "What's new" markdown files for Intune, Windows Autopilot, and Windows 365
+ * by checking the git diff on the source repositories via the GitHub API,
+ * then publishes a digest as a daily GitHub issue.
  *
- * None of these products' docs sources are usable for PR-based tracking
- * (memdocs' Intune/Autopilot folders don't map cleanly to per-feature
- * announcements, and Windows 365's source repo is private), so instead this
- * scrapes the public "What's new" pages Microsoft already curates. Each
- * product page has a different structure, handled by one of three parsers:
- *
- *   - 'weekly'        Windows 365: <h2>Week of ...</h2> / <h3>item</h3>
- *   - 'weekly-nested'  Intune: <h2>Week of ...</h2> / <h3>category</h3> /
- *                       <h4>item</h4>
- *   - 'dated'          Windows Autopilot: <h2>item</h2> followed by a
- *                       "Date added: <em>...</em>" (and optionally
- *                       "Date updated: <em>...</em>") paragraph
- *
- * Modeled after BakkerJan/entra-docs-daily-reporter-example, adapted for
- * Intune, Windows Autopilot, and Windows 365 content.
+ * For each tracked source file, the script:
+ *   1. Queries the GitHub commits API for commits within the report window
+ *   2. Fetches the patch (diff) for each commit
+ *   3. Extracts added markdown headings and their descriptions
  *
  * Usage:
  *   node report.mjs                # generate report files only
  *   node report.mjs --publish      # generate + create/update the daily issue
  *
- * Required env vars (only for --publish):
- *   GITHUB_TOKEN        - token with issues:write on the *target* repo
- *                          (the one this workflow runs in)
+ * Required env vars:
+ *   GITHUB_TOKEN        - token with repo read access on the source repos
+ *                          AND issues:write on the target repo (for --publish)
  *
  * Optional env vars:
  *   LOOKBACK_HOURS       - size of the report window in hours (default: 24)
@@ -50,18 +40,33 @@ const LOOKBACK_HOURS = Number(process.env.LOOKBACK_HOURS || 24);
 const TZ = process.env.TZ_REPORT || 'Europe/Amsterdam';
 const OUTPUT_DIR = process.env.OUTPUT_DIR || './out';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
-const TARGET_REPO = process.env.GITHUB_REPOSITORY || ''; // owner/repo to publish into
+const TARGET_REPO = process.env.GITHUB_REPOSITORY || '';
 const PUBLISH = process.argv.includes('--publish');
 
-// "What's new" pages tracked for the report. `parser` selects which of the
-// three heading structures (see file header) to use for that page.
+// Source markdown files tracked for the report. Each entry specifies the
+// GitHub repo, file path, branch, and a public URL base for linking.
 const WHATS_NEW_SOURCES = [
-  { url: 'https://learn.microsoft.com/en-us/intune/whats-new/', label: 'Intune', parser: 'weekly-nested' },
-  { url: 'https://learn.microsoft.com/en-us/autopilot/whats-new', label: 'Windows Autopilot', parser: 'dated' },
-  { url: 'https://learn.microsoft.com/en-us/windows-365/enterprise/whats-new', label: 'Windows 365 — Enterprise', parser: 'weekly' },
-  { url: 'https://learn.microsoft.com/en-us/windows-365/business/whats-new', label: 'Windows 365 — Business', parser: 'weekly' },
-  { url: 'https://learn.microsoft.com/en-us/windows-365/link/whats-new', label: 'Windows 365 — Link', parser: 'weekly' },
-  { url: 'https://learn.microsoft.com/en-us/windows-365/agents/whats-new', label: 'Windows 365 — Agents', parser: 'weekly' },
+  {
+    repo: 'MicrosoftDocs/memdocs',
+    path: 'intune/whats-new/index.md',
+    branch: 'main',
+    label: 'Intune',
+    docsUrl: 'https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new',
+  },
+  {
+    repo: 'MicrosoftDocs/memdocs',
+    path: 'autopilot/whats-new.md',
+    branch: 'main',
+    label: 'Windows Autopilot',
+    docsUrl: 'https://learn.microsoft.com/en-us/autopilot/whats-new',
+  },
+  {
+    repo: 'MicrosoftDocs/entra-docs',
+    path: 'docs/fundamentals/whats-new.md',
+    branch: 'main',
+    label: 'Microsoft Entra',
+    docsUrl: 'https://learn.microsoft.com/en-us/entra/fundamentals/whats-new',
+  },
 ];
 
 const GITHUB_API = 'https://api.github.com';
@@ -89,7 +94,6 @@ async function ghFetch(url, options = {}) {
   return res.json();
 }
 
-/** Format a Date as YYYY-MM-DD in the given IANA timezone. */
 function ymdInTz(date, tz) {
   const parts = new Intl.DateTimeFormat('en-CA', {
     timeZone: tz,
@@ -101,10 +105,7 @@ function ymdInTz(date, tz) {
   return `${get('year')}-${get('month')}-${get('day')}`;
 }
 
-/** Midnight (00:00:00) in `tz` for the given YYYY-MM-DD, returned as a UTC Date. */
 function midnightInTzAsUtc(ymd, tz) {
-  // Binary-search style: start from a naive UTC guess, then correct using the
-  // timezone offset reported for that instant so DST transitions are handled.
   const naive = new Date(`${ymd}T00:00:00Z`);
   const dtf = new Intl.DateTimeFormat('en-US', {
     timeZone: tz,
@@ -119,210 +120,189 @@ function midnightInTzAsUtc(ymd, tz) {
   return new Date(naive.getTime() - offsetMs);
 }
 
-/** Build the strict, non-overlapping report window: the most recently
- * completed midnight-to-midnight calendar day in `tz`, clipped/extended to
- * LOOKBACK_HOURS. Re-running the same day always yields the same window. */
 function computeWindow(now, tz, lookbackHours) {
   const todayYmd = ymdInTz(now, tz);
   const todayMidnightUtc = midnightInTzAsUtc(todayYmd, tz);
-  const end = todayMidnightUtc; // today 00:00 local
+  const end = todayMidnightUtc;
   const start = new Date(end.getTime() - lookbackHours * 60 * 60 * 1000);
   return { start, end, reportDateYmd: ymdInTz(start, tz) };
 }
 
-const MONTH_NAMES = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-];
-
-/** Parse a "<Month> <Day>, <Year>" string into a YYYY-MM-DD string. */
-function parseMonthDayYear(str) {
-  const m = str.match(/([A-Za-z]+) (\d{1,2}),? (\d{4})/);
-  if (!m) return null;
-  const monthIndex = MONTH_NAMES.findIndex((name) => name.toLowerCase() === m[1].toLowerCase());
-  if (monthIndex === -1) return null;
-  const month = String(monthIndex + 1).padStart(2, '0');
-  const day = String(m[2]).padStart(2, '0');
-  return `${m[3]}-${month}-${day}`;
-}
-
-function decodeHtmlEntities(str) {
-  return str
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;|&rsquo;|&#8217;/g, '’')
-    .replace(/&ndash;/g, '–')
-    .replace(/&mdash;/g, '—')
-    .replace(/&nbsp;/g, ' ');
-}
-
-/** Strip HTML comments/tags from a heading's inner HTML and decode entities. */
-function stripTags(html) {
-  return decodeHtmlEntities(html.replace(/<!--[\s\S]*?-->/g, '').replace(/<[^>]+>/g, '')).trim();
-}
-
-/** Format a YYYY-MM-DD string as "27 Jul 2026" in the given IANA timezone. */
-function fmtDateOnly(ymd, tz) {
-  return new Intl.DateTimeFormat('en-GB', {
-    timeZone: tz,
-    year: 'numeric',
-    month: 'short',
-    day: '2-digit',
-  }).format(midnightInTzAsUtc(ymd, tz));
-}
-
 // ---------------------------------------------------------------------------
-// Page parsers - each returns unfiltered {category, title, url, dateYmd,
-// dateLabel} items; date filtering against the report window happens once,
-// centrally, in collectWhatsNewItems.
+// Diff-based data collection
 // ---------------------------------------------------------------------------
 
-/** Windows 365 style: <h2>Week of ...</h2> directly followed by <h3> items. */
-function parseWeeklyPage(html, source) {
+async function getCommitsForFile(repo, filePath, branch, since, until) {
+  const params = new URLSearchParams({
+    sha: branch,
+    path: filePath,
+    since: since.toISOString(),
+    until: until.toISOString(),
+    per_page: '100',
+  });
+  const url = `${GITHUB_API}/repos/${repo}/commits?${params}`;
+  return await ghFetch(url);
+}
+
+async function getCommitPatch(repo, sha, filePath) {
+  const url = `${GITHUB_API}/repos/${repo}/commits/${sha}`;
+  try {
+    const commit = await ghFetch(url);
+    const file = (commit.files || []).find((f) => f.filename === filePath);
+    return file?.patch || '';
+  } catch (err) {
+    console.error(`Failed to get patch for ${repo}@${sha}: ${err.message}`);
+    return '';
+  }
+}
+
+/** Extract added markdown headings and their first paragraph from a unified diff patch. */
+function parseAddedSectionsFromPatch(patch) {
   const items = [];
-  const headingRe = /<h2 id="([^"]+)"[^>]*>([\s\S]*?)<\/h2>|<h3 id="([^"]+)"[^>]*>([\s\S]*?)<\/h3>/g;
-  let currentWeekYmd = null;
-  let match;
-  while ((match = headingRe.exec(html))) {
-    if (match[1] !== undefined) {
-      // Only update on a successful parse - stray non-"Week of" h2s (nav,
-      // footer headings) shouldn't blow away the current week context.
-      const parsed = parseMonthDayYear(stripTags(match[2]).replace(/^Week of /i, ''));
-      if (parsed) currentWeekYmd = parsed;
+  const lines = patch.split('\n');
+  let currentHeading = null;
+  let currentBody = [];
+
+  for (const line of lines) {
+    if (!line.startsWith('+') || line.startsWith('+++')) continue;
+    const content = line.slice(1);
+
+    const headingMatch = content.match(/^(#{2,4})\s+(.+)$/);
+    if (headingMatch) {
+      if (currentHeading) {
+        items.push({ level: currentHeading.level, title: currentHeading.title, body: currentBody.join(' ').trim() });
+      }
+      currentHeading = { level: headingMatch[1].length, title: headingMatch[2].trim() };
+      currentBody = [];
       continue;
     }
-    if (!currentWeekYmd) continue;
-    const title = stripTags(match[4]);
-    if (!title) continue;
-    items.push({
-      category: source.label,
-      title,
-      url: `${source.url}#${match[3]}`,
-      dateYmd: currentWeekYmd,
-      dateLabel: `Week of ${fmtDateOnly(currentWeekYmd, TZ)}`,
-    });
+
+    if (currentHeading && content.trim()) {
+      currentBody.push(content.trim());
+    }
+  }
+  if (currentHeading) {
+    items.push({ level: currentHeading.level, title: currentHeading.title, body: currentBody.join(' ').trim() });
   }
   return items;
 }
 
-/** Intune style: <h2>Week of ...</h2> / <h3>category</h3> / <h4>item</h4>. */
-function parseWeeklyNestedPage(html, source) {
-  const items = [];
-  const headingRe =
-    /<h2 id="([^"]+)"[^>]*>([\s\S]*?)<\/h2>|<h3 id="([^"]+)"[^>]*>([\s\S]*?)<\/h3>|<h4 id="([^"]+)"[^>]*>([\s\S]*?)<\/h4>/g;
-  let currentWeekYmd = null;
-  let currentCategory = null;
-  let match;
-  while ((match = headingRe.exec(html))) {
-    if (match[1] !== undefined) {
-      const parsed = parseMonthDayYear(stripTags(match[2]).replace(/^Week of /i, ''));
-      if (parsed) currentWeekYmd = parsed;
-      continue;
-    }
-    if (match[3] !== undefined) {
-      currentCategory = stripTags(match[4]);
-      continue;
-    }
-    if (!currentWeekYmd) continue;
-    const title = stripTags(match[6]);
-    if (!title) continue;
-    items.push({
-      category: `${source.label} — ${currentCategory || 'General'}`,
-      title,
-      url: `${source.url}#${match[5]}`,
-      dateYmd: currentWeekYmd,
-      dateLabel: `Week of ${fmtDateOnly(currentWeekYmd, TZ)}`,
-    });
-  }
-  return items;
-}
-
-/** Windows Autopilot style: <h2>item</h2> followed by a "Date added: <em>
- * ...</em>" / "Date updated: <em>...</em>" paragraph, no weekly grouping. */
-function parseDatedPage(html, source) {
-  const items = [];
-  const blockRe = /<h2 id="([^"]+)"[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2 |$)/g;
-  let match;
-  while ((match = blockRe.exec(html))) {
-    const [, anchor, titleHtml, body] = match;
-    const title = stripTags(titleHtml);
-    if (!title) continue;
-
-    const addedMatch = body.match(/Date added:\s*<em>([^<]+)<\/em>/i);
-    const updatedMatch = body.match(/Date updated:\s*<em>([^<]+)<\/em>/i);
-    const addedYmd = addedMatch ? parseMonthDayYear(addedMatch[1]) : null;
-    const updatedYmd = updatedMatch ? parseMonthDayYear(updatedMatch[1]) : null;
-    if (!addedYmd && !updatedYmd) continue; // nav/footer headings, no date info
-
-    items.push({
-      category: source.label,
-      title,
-      url: `${source.url}#${anchor}`,
-      addedYmd,
-      updatedYmd,
-    });
-  }
-  return items;
-}
-
-// ---------------------------------------------------------------------------
-// Data collection
-// ---------------------------------------------------------------------------
-
-const PARSERS = {
-  weekly: parseWeeklyPage,
-  'weekly-nested': parseWeeklyNestedPage,
-  dated: parseDatedPage,
-};
-
-/** Scrape every configured "What's new" page and return items that fall
- * inside the strict report window. */
 async function collectWhatsNewItems(window) {
+  if (!GITHUB_TOKEN) {
+    console.warn('Warning: No GITHUB_TOKEN set. Unauthenticated requests are rate-limited to 60/hr and cannot access private repos.');
+  }
+
   const items = [];
 
   for (const source of WHATS_NEW_SOURCES) {
-    let html;
+    console.log(`  Checking ${source.label}: ${source.repo}/${source.path}`);
+    let commits;
     try {
-      const res = await fetch(source.url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      html = await res.text();
+      commits = await getCommitsForFile(source.repo, source.path, source.branch, window.start, window.end);
     } catch (err) {
-      console.error(`Failed to fetch ${source.url}: ${err.message}`);
+      console.warn(`    Skipping ${source.label}: ${err.message}`);
       continue;
     }
 
-    const parse = PARSERS[source.parser];
-    const parsed = parse(html, source);
+    if (commits.length === 0) {
+      console.log(`    No commits found in window.`);
+      continue;
+    }
+    console.log(`    Found ${commits.length} commit(s).`);
 
-    for (const item of parsed) {
-      if (source.parser === 'dated') {
-        // Prefer "updated" as the effective date when it's the one that
-        // falls in-window, so a later revision doesn't get relabeled as new.
-        const updatedInWindow =
-          item.updatedYmd &&
-          midnightInTzAsUtc(item.updatedYmd, TZ) >= window.start &&
-          midnightInTzAsUtc(item.updatedYmd, TZ) < window.end;
-        const addedInWindow =
-          item.addedYmd &&
-          midnightInTzAsUtc(item.addedYmd, TZ) >= window.start &&
-          midnightInTzAsUtc(item.addedYmd, TZ) < window.end;
-        if (updatedInWindow) {
-          items.push({ ...item, dateLabel: `Updated ${fmtDateOnly(item.updatedYmd, TZ)}` });
-        } else if (addedInWindow) {
-          items.push({ ...item, dateLabel: `Added ${fmtDateOnly(item.addedYmd, TZ)}` });
-        }
-        continue;
-      }
+    const seen = new Set();
 
-      const weekStart = midnightInTzAsUtc(item.dateYmd, TZ);
-      if (weekStart >= window.start && weekStart < window.end) {
-        items.push(item);
+    for (const commit of commits) {
+      const patch = await getCommitPatch(source.repo, commit.sha, source.path);
+      if (!patch) continue;
+
+      const sections = parseAddedSectionsFromPatch(patch);
+      const commitDate = commit.commit.committer.date || commit.commit.author.date;
+
+      for (const section of sections) {
+        // Skip structural headings
+        if (/^week of /i.test(section.title)) continue;
+        if (/^notices$/i.test(section.title)) continue;
+        // Skip category-level headings (e.g. "Device configuration", "App management")
+        if (section.level <= 3 && !section.body) continue;
+
+        const key = `${source.label}::${section.title}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+
+        const anchor = section.title
+          .toLowerCase()
+          .replace(/[^\w\s-]/g, '')
+          .replace(/\s+/g, '-');
+
+        items.push({
+          category: source.label,
+          title: section.title,
+          url: `${source.docsUrl}#${anchor}`,
+          commitUrl: commit.html_url,
+          commitDate,
+          dateLabel: new Date(commitDate).toLocaleDateString('en-GB', {
+            timeZone: TZ,
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+          }),
+        });
       }
     }
   }
 
+  items.sort((a, b) => a.category.localeCompare(b.category) || a.title.localeCompare(b.title));
+  return items;
+}
+
+// ---------------------------------------------------------------------------
+// Microsoft 365 Roadmap
+// ---------------------------------------------------------------------------
+
+const ROADMAP_RSS_URL = 'https://www.microsoft.com/en-us/microsoft-365/RoadmapFeatureRSS/';
+const ROADMAP_PRODUCT_FILTERS = ['Microsoft Intune', 'Microsoft Entra', 'Windows Autopilot'];
+
+async function collectRoadmapItems(window) {
+  let xml;
+  try {
+    const res = await fetch(ROADMAP_RSS_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    xml = await res.text();
+  } catch (err) {
+    console.warn(`  Skipping M365 Roadmap: ${err.message}`);
+    return [];
+  }
+
+  const items = [];
+  const rssItems = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)];
+
+  for (const [, body] of rssItems) {
+    const categories = [...body.matchAll(/<category>([^<]+)<\/category>/g)].map((m) => m[1]);
+    const matchedProduct = categories.find((c) => ROADMAP_PRODUCT_FILTERS.includes(c));
+    if (!matchedProduct) continue;
+
+    const pubDateStr = body.match(/<pubDate>([^<]+)<\/pubDate>/)?.[1];
+    if (!pubDateStr) continue;
+    const pubDate = new Date(pubDateStr);
+    if (pubDate < window.start || pubDate >= window.end) continue;
+
+    const title = body.match(/<title>([^<]+)<\/title>/)?.[1];
+    const link = body.match(/<link>([^<]+)<\/link>/)?.[1];
+    const status = categories.find((c) => ['In development', 'Rolling out', 'Launched'].includes(c)) || '';
+    if (!title) continue;
+
+    items.push({
+      category: `${matchedProduct} — Roadmap`,
+      title,
+      url: link || '',
+      commitUrl: '',
+      commitDate: pubDate.toISOString(),
+      dateLabel: `${status} · ${pubDate.toLocaleDateString('en-GB', { timeZone: TZ, day: '2-digit', month: 'short', year: 'numeric' })}`,
+    });
+  }
+
+  console.log(`  Checking M365 Roadmap: found ${items.length} item(s) in window.`);
   items.sort((a, b) => a.category.localeCompare(b.category) || a.title.localeCompare(b.title));
   return items;
 }
@@ -345,7 +325,7 @@ function fmtLocal(iso, tz) {
 
 function renderMarkdown(items, window, reportDateYmd) {
   const lines = [];
-  lines.push(`# Daily Intune Docs PR Report - ${reportDateYmd}`);
+  lines.push(`# Daily Intune & Entra Report - ${reportDateYmd}`);
   lines.push('');
   lines.push(
     `Window: ${fmtLocal(window.start, TZ)} → ${fmtLocal(window.end, TZ)} (${TZ}, ${LOOKBACK_HOURS}h)`
@@ -364,7 +344,8 @@ function renderMarkdown(items, window, reportDateYmd) {
       lines.push(`## ${currentCategory}`);
       lines.push('');
     }
-    lines.push(`- [${item.title}](${item.url})`);
+    const diffLink = item.commitUrl ? ` ([diff](${item.commitUrl}))` : '';
+    lines.push(`- [${item.title}](${item.url})${diffLink}`);
     lines.push(`  ${item.dateLabel}`);
     lines.push('');
   }
@@ -382,6 +363,7 @@ function renderHtml(items, window, reportDateYmd) {
       (item) => `<tr>
         <td>${esc(item.category)}</td>
         <td><a href="${esc(item.url)}">${esc(item.title)}</a></td>
+        <td>${item.commitUrl ? `<a href="${esc(item.commitUrl)}">diff</a>` : ''}</td>
         <td>${esc(item.dateLabel)}</td>
       </tr>`
     )
@@ -391,7 +373,7 @@ function renderHtml(items, window, reportDateYmd) {
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Daily Intune Docs PR Report - ${esc(reportDateYmd)}</title>
+<title>Daily Intune & Entra Report - ${esc(reportDateYmd)}</title>
 <style>
   body { font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif; margin: 2rem; color: #1a1a1a; }
   h1 { font-size: 1.4rem; }
@@ -403,14 +385,14 @@ function renderHtml(items, window, reportDateYmd) {
 </style>
 </head>
 <body>
-  <h1>Daily Intune Docs PR Report - ${esc(reportDateYmd)}</h1>
+  <h1>Daily Intune & Entra Report - ${esc(reportDateYmd)}</h1>
   <p class="meta">Window: ${esc(fmtLocal(window.start, TZ))} → ${esc(fmtLocal(window.end, TZ))} (${esc(TZ)}, ${LOOKBACK_HOURS}h)</p>
   <table>
     <thead>
-      <tr><th>Category</th><th>Title</th><th>Date</th></tr>
+      <tr><th>Category</th><th>Title</th><th>Commit</th><th>Date</th></tr>
     </thead>
     <tbody>
-      ${rows || '<tr><td colspan="3">No new items were published in this window.</td></tr>'}
+      ${rows || '<tr><td colspan="4">No new items were published in this window.</td></tr>'}
     </tbody>
   </table>
 </body>
@@ -427,12 +409,13 @@ function renderJson(items, window, reportDateYmd) {
         timezone: TZ,
         lookbackHours: LOOKBACK_HOURS,
       },
-      sources: WHATS_NEW_SOURCES,
+      sources: WHATS_NEW_SOURCES.map((s) => ({ repo: s.repo, path: s.path, label: s.label })),
       itemCount: items.length,
       items: items.map((i) => ({
         category: i.category,
         title: i.title,
         url: i.url,
+        commitUrl: i.commitUrl,
         dateLabel: i.dateLabel,
       })),
     },
@@ -477,11 +460,17 @@ async function main() {
   const window = computeWindow(now, TZ, LOOKBACK_HOURS);
 
   console.log(
-    `Collecting What's New items: ${window.start.toISOString()} → ${window.end.toISOString()} (${TZ})`
+    `Collecting What's New items from markdown diffs: ${window.start.toISOString()} → ${window.end.toISOString()} (${TZ})`
   );
 
-  const items = await collectWhatsNewItems(window);
-  console.log(`Found ${items.length} item(s).`);
+  const docsItems = await collectWhatsNewItems(window);
+  console.log(`Found ${docsItems.length} docs item(s).`);
+
+  const roadmapItems = await collectRoadmapItems(window);
+
+  const items = [...docsItems, ...roadmapItems];
+  items.sort((a, b) => a.category.localeCompare(b.category) || a.title.localeCompare(b.title));
+  console.log(`Total: ${items.length} item(s).`);
 
   const md = renderMarkdown(items, window, window.reportDateYmd);
   const html = renderHtml(items, window, window.reportDateYmd);
@@ -497,7 +486,7 @@ async function main() {
     if (!GITHUB_TOKEN || !TARGET_REPO) {
       throw new Error('--publish requires GITHUB_TOKEN and GITHUB_REPOSITORY to be set.');
     }
-    const title = `Daily Intune Docs PR Report - ${window.reportDateYmd}`;
+    const title = `Daily Intune & Entra Report - ${window.reportDateYmd}`;
     const result = await publishIssue(TARGET_REPO, title, md);
     console.log(`Issue ${result.action}: #${result.number} in ${TARGET_REPO}`);
   }
