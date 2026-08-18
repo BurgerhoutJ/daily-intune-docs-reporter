@@ -1,0 +1,343 @@
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #fafbfc;
+  --border: #e6e9ec;
+  --text: #1a1a1a;
+  --text-secondary: #555b63;
+  --text-muted: #8a919b;
+  --accent: #c85a2a;
+  --accent-hover: #a84820;
+  --header-bg: #1a1a1a;
+  --header-text: #ffffff;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.1);
+  --radius: 8px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: #f7f8fa;
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+/* Header */
+.site-header {
+  background: var(--header-bg);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-title {
+  color: var(--header-text);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.site-nav a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  color: #ffffff;
+}
+
+/* Main content */
+main {
+  flex: 1;
+  padding: 2.5rem 0;
+}
+
+/* Page header */
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.page-header p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* Report cards */
+.report-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.report-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.report-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.report-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.report-card .card-title a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.report-card .card-title a:hover {
+  color: var(--accent);
+}
+
+.report-card .card-date {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  margin-left: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.report-card .card-meta {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.report-card .badge {
+  display: inline-flex;
+  align-items: center;
+  background: #f0f3f6;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+}
+
+/* Item list inside expanded card */
+.report-items {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+.report-items .category-group {
+  margin-bottom: 1rem;
+}
+
+.report-items .category-group:last-child {
+  margin-bottom: 0;
+}
+
+.report-items .category-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+.report-items ul {
+  list-style: none;
+}
+
+.report-items li {
+  padding: 0.4rem 0;
+  font-size: 0.9rem;
+}
+
+.report-items li a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.report-items li a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* Archive list */
+.archive-list {
+  list-style: none;
+}
+
+.archive-list li {
+  border-bottom: 1px solid var(--border);
+}
+
+.archive-list li:last-child {
+  border-bottom: none;
+}
+
+.archive-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.15s;
+  border-radius: 4px;
+}
+
+.archive-list a:hover {
+  background: var(--surface-hover);
+}
+
+.archive-list .archive-title {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.archive-list .archive-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.archive-list .archive-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: #f0f3f6;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+}
+
+.archive-list .archive-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* States */
+.loading {
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--text-muted);
+}
+
+.loading::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 1rem auto 0;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty {
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.error {
+  background: #fef0f0;
+  border: 1px solid #f5c6c6;
+  color: #a33;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--header-bg);
+  color: rgba(255,255,255,0.6);
+  padding: 2rem 0;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.site-footer a {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: #fff;
+}
+
+.site-footer p + p {
+  margin-top: 0.4rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .site-header .container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .report-card .card-header {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .report-card .card-date {
+    margin-left: 0;
+  }
+  .archive-list a {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  .archive-list .archive-meta {
+    margin-left: 0;
+  }
+}

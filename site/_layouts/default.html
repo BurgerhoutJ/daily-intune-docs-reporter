@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <meta name="github-repo" content="{{ site.github_repo }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
+      <nav class="site-nav">
+        <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a>
+        <a href="{{ '/archive' | relative_url }}" {% if page.url == '/archive' %}class="active"{% endif %}>Archive</a>
+        <a href="https://github.com/{{ site.github_repo }}" target="_blank">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Reports generated daily at 06:00 UTC from Microsoft's documentation repositories.</p>
+      <p><a href="https://github.com/{{ site.github_repo }}">View on GitHub</a> · <a href="https://www.burgerhout.org">burgerhout.org</a></p>
+    </div>
+  </footer>
+
+  <script src="{{ '/assets/js/reports.js' | relative_url }}"></script>
+</body>
+</html>

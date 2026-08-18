@@ -1,0 +1,10 @@
+title: Daily Intune & Entra Docs Reporter
+description: Daily digest of changes to Microsoft's Intune, Windows Autopilot, and Entra documentation.
+url: "https://reports.burgerhout.org"
+baseurl: ""
+
+github_repo: BurgerhoutJ/daily-intune-docs-reporter
+issue_label: intune-docs-report
+
+plugins:
+  - jekyll-seo-tag
