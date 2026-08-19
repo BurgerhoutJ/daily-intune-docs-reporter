@@ -686,7 +686,7 @@ main {
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   body.nav-open {
     overflow: hidden;
   }
