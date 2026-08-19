@@ -341,18 +341,12 @@ function renderMarkdown(items, window, reportDateYmd) {
     return lines.join('\n');
   }
 
-  let currentCategory = null;
-  let currentSubCategory = null;
+  let currentHeading = null;
   for (const item of items) {
-    if (item.category !== currentCategory) {
-      currentCategory = item.category;
-      currentSubCategory = null;
-      lines.push(`## ${currentCategory}`);
-      lines.push('');
-    }
-    if (item.subCategory && item.subCategory !== currentSubCategory) {
-      currentSubCategory = item.subCategory;
-      lines.push(`### ${currentSubCategory}`);
+    const heading = item.subCategory ? `${item.category} — ${item.subCategory}` : item.category;
+    if (heading !== currentHeading) {
+      currentHeading = heading;
+      lines.push(`## ${heading}`);
       lines.push('');
     }
     const changeLink = item.commitUrl ? ` · [view change](${item.commitUrl})` : '';

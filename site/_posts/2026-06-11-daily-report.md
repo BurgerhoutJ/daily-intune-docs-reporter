@@ -15,12 +15,12 @@ category: report
 - [Managed Home Screen exit lock task mode password now requires a device configuration profile<!-- 31846021 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#managed-home-screen-exit-lock-task-mode-password-now-requires-a-device-configuration-profile---31846021---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/af0a1b9ed9d1e654b4c6c8ed6f4b67f609f1526a)
   11 Jun 2026
 
-### App management
+## Intune — App management
 
 - [Newly available protected apps for Intune<!-- 36990464, 37246057, 37348844, 37366700, 37401822, 37401836 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#newly-available-protected-apps-for-intune---36990464-37246057-37348844-37366700-37401822-37401836---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/256e9df33ca0488aad171a413b618fb0675add1f)
   11 Jun 2026
 
-### Device configuration
+## Intune — Device configuration
 
 - [Disable MAC address randomization on macOS Wi-Fi profiles<!-- 8457343 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#disable-mac-address-randomization-on-macos-wi-fi-profiles---8457343---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/256e9df33ca0488aad171a413b618fb0675add1f)
   11 Jun 2026
@@ -40,12 +40,12 @@ category: report
 - [Use DDM to manage Apple Intelligence settings on devices running 26.4 and later<!-- 37011037 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#use-ddm-to-manage-apple-intelligence-settings-on-devices-running-264-and-later---37011037---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/256e9df33ca0488aad171a413b618fb0675add1f)
   11 Jun 2026
 
-### Device management
+## Intune — Device management
 
 - [Detect and block Shadow AI using the properties catalog, device query, and a security baseline (public preview)<!-- 37141378 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#detect-and-block-shadow-ai-using-the-properties-catalog-device-query-and-a-security-baseline-public-preview---37141378---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/256e9df33ca0488aad171a413b618fb0675add1f)
   11 Jun 2026
 
-### Device security
+## Intune — Device security
 
 - [Grant enhanced security permissions to a Mobile Threat Defense app on Android<!-- 33745497 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#grant-enhanced-security-permissions-to-a-mobile-threat-defense-app-on-android---33745497---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/256e9df33ca0488aad171a413b618fb0675add1f)
   11 Jun 2026

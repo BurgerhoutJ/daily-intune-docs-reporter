@@ -21,7 +21,7 @@ category: report
 - [Updated Visual Studio administrative templates in the Windows settings catalog<!-- 38140497 wndraft wnready-->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#updated-visual-studio-administrative-templates-in-the-windows-settings-catalog---38140497-wndraft-wnready--) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/dbe37c10bf8948d44b7601944a66cafee5f29615)
   31 Jul 2026
 
-### Device configuration
+## Intune — Device configuration
 
 - [New Microsoft Edge settings in the Windows settings catalog<!-- 38140497 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#new-microsoft-edge-settings-in-the-windows-settings-catalog---38140497---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/3c8f16eeb9974d781b00608661b53bfc54c6e4a0)
   31 Jul 2026
@@ -32,7 +32,7 @@ category: report
 - [Samsung Knox E-FOTA firmware update management for Android Enterprise devices<!-- 6515233 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#samsung-knox-e-fota-firmware-update-management-for-android-enterprise-devices---6515233---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/3c8f16eeb9974d781b00608661b53bfc54c6e4a0)
   31 Jul 2026
 
-### Device enrollment
+## Intune — Device enrollment
 
 - [Dedicated RBAC permission for zero-touch enrollment<!-- 29694995 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#dedicated-rbac-permission-for-zero-touch-enrollment---29694995---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/3c8f16eeb9974d781b00608661b53bfc54c6e4a0)
   31 Jul 2026
@@ -40,7 +40,7 @@ category: report
 - [Skip Setup Assistant screens for tvOS and visionOS enrollment<!-- 37665726 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#skip-setup-assistant-screens-for-tvos-and-visionos-enrollment---37665726---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/3c8f16eeb9974d781b00608661b53bfc54c6e4a0)
   31 Jul 2026
 
-### Device management
+## Intune — Device management
 
 - [Collect Windows registry data with the properties catalog<!-- 33470861 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#collect-windows-registry-data-with-the-properties-catalog---33470861---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/3c8f16eeb9974d781b00608661b53bfc54c6e4a0)
   31 Jul 2026
@@ -48,7 +48,7 @@ category: report
 - [Improved on-demand device sync for Windows devices<!-- 37533252, 37595192 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#improved-on-demand-device-sync-for-windows-devices---37533252-37595192---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/3c8f16eeb9974d781b00608661b53bfc54c6e4a0)
   31 Jul 2026
 
-### Device security
+## Intune — Device security
 
 - [Controlled Configuration for Microsoft Defender antivirus settings (preview)<!-- 26715847 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#controlled-configuration-for-microsoft-defender-antivirus-settings-preview---26715847---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/3c8f16eeb9974d781b00608661b53bfc54c6e4a0)
   31 Jul 2026
@@ -56,7 +56,7 @@ category: report
 - [Custom compliance settings for macOS<!-- 35392462 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#custom-compliance-settings-for-macos---35392462---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/3c8f16eeb9974d781b00608661b53bfc54c6e4a0)
   31 Jul 2026
 
-### Intune apps
+## Intune — Intune apps
 
 - [Change Review Agent suggestions available inline in Multi Admin Approval (preview)<!-- 36876605 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#change-review-agent-suggestions-available-inline-in-multi-admin-approval-preview---36876605---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/3c8f16eeb9974d781b00608661b53bfc54c6e4a0)
   31 Jul 2026

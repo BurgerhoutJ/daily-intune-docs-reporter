@@ -4,9 +4,7 @@ date: 2026-06-29
 category: report
 ---
 
-## Intune
-
-### App management
+## Intune — App management
 
 - [Auto-update for Enterprise App Management applications<!-- 33727305 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#auto-update-for-enterprise-app-management-applications---33727305---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/d9ba8448cf59e0feaabd1b9574fbed9bcc66f329)
   29 Jun 2026
@@ -20,7 +18,7 @@ category: report
 - [Newly available protected app for Intune <!-- 37813202 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#newly-available-protected-app-for-intune----37813202---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/d9ba8448cf59e0feaabd1b9574fbed9bcc66f329)
   29 Jun 2026
 
-### Device configuration
+## Intune — Device configuration
 
 - [New Android Enterprise settings in the Intune settings catalog<!-- 35028596, 32195504, 30798336, 33982129, 33982131, 24964827, 24964848, 33982123, 33982122, 24964861, 24964854, 33982130, 33982127, 33982120, 24964888, 24964874, 37087237 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#new-android-enterprise-settings-in-the-intune-settings-catalog---35028596-32195504-30798336-33982129-33982131-24964827-24964848-33982123-33982122-24964861-24964854-33982130-33982127-33982120-24964888-24964874-37087237---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/d9ba8448cf59e0feaabd1b9574fbed9bcc66f329)
   29 Jun 2026
@@ -31,7 +29,7 @@ category: report
 - [Support for WPA3-Personal in iOS/iPadOS Wi-Fi profiles<!-- 36602689 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#support-for-wpa3-personal-in-iosipados-wi-fi-profiles---36602689---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/d9ba8448cf59e0feaabd1b9574fbed9bcc66f329)
   29 Jun 2026
 
-### Device management
+## Intune — Device management
 
 - [Intune support for Trustd Mobile as a mobile threat defense partner<!-- 38433837 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#intune-support-for-trustd-mobile-as-a-mobile-threat-defense-partner---38433837---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/d9ba8448cf59e0feaabd1b9574fbed9bcc66f329)
   29 Jun 2026
@@ -39,7 +37,7 @@ category: report
 - [Remote Help support for RemoteApp in Azure Virtual Desktop<!-- 33047374 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#remote-help-support-for-remoteapp-in-azure-virtual-desktop---33047374---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/d9ba8448cf59e0feaabd1b9574fbed9bcc66f329)
   29 Jun 2026
 
-### Device security
+## Intune — Device security
 
 - [Microsoft Tunnel adds support for Red Hat Enterprise Linux 9.7<!-- 15021673 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#microsoft-tunnel-adds-support-for-red-hat-enterprise-linux-97---15021673---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/d9ba8448cf59e0feaabd1b9574fbed9bcc66f329)
   29 Jun 2026
