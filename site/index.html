@@ -11,8 +11,18 @@ title: Home
 {% assign report_posts = site.posts | where: "category", "report" %}
 
 {% if report_posts.size > 0 %}
+
+<div class="calendar-wrap">
+  <div class="calendar-nav">
+    <button id="cal-prev">&larr;</button>
+    <span id="cal-title"></span>
+    <button id="cal-next">&rarr;</button>
+  </div>
+  <div id="calendar" class="calendar-grid"></div>
+</div>
+
 {% for post in report_posts %}
-<div class="report-card report-full">
+<div class="report-card report-full" data-date="{{ post.date | date: '%Y-%m-%d' }}">
   <div class="card-header">
     <h2 class="card-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
     <span class="card-date">{{ post.date | date: "%d %b %Y" }}</span>
@@ -26,3 +36,60 @@ title: Home
 {% else %}
 <p class="empty">No reports yet. The first report will appear after the next scheduled workflow run.</p>
 {% endif %}
+
+<script>
+(function() {
+  const cards = document.querySelectorAll('.report-card[data-date]');
+  const postDates = new Set();
+  cards.forEach(c => postDates.add(c.dataset.date));
+
+  let currentMonth = new Date();
+
+  function render() {
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    document.getElementById('cal-title').textContent =
+      new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const grid = document.getElementById('calendar');
+
+    let html = '<div class="cal-header">Mo</div><div class="cal-header">Tu</div><div class="cal-header">We</div><div class="cal-header">Th</div><div class="cal-header">Fr</div><div class="cal-header">Sa</div><div class="cal-header">Su</div>';
+
+    const offset = (firstDay + 6) % 7;
+    for (let i = 0; i < offset; i++) html += '<div class="cal-empty"></div>';
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const ymd = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      const hasPost = postDates.has(ymd);
+      const cls = hasPost ? 'cal-day has-post' : 'cal-day';
+      html += `<div class="${cls}" data-date="${ymd}">${d}</div>`;
+    }
+
+    grid.innerHTML = html;
+
+    grid.querySelectorAll('.cal-day.has-post').forEach(day => {
+      day.addEventListener('click', () => {
+        const target = document.querySelector(`.report-card[data-date="${day.dataset.date}"]`);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          target.style.outline = '2px solid var(--accent)';
+          setTimeout(() => target.style.outline = '', 2000);
+        }
+      });
+    });
+  }
+
+  document.getElementById('cal-prev').addEventListener('click', () => {
+    currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1);
+    render();
+  });
+  document.getElementById('cal-next').addEventListener('click', () => {
+    currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1);
+    render();
+  });
+
+  render();
+})();
+</script>
