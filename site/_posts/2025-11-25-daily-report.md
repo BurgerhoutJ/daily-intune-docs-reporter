@@ -4,7 +4,7 @@ date: 2025-11-25
 category: report
 ---
 
-## Microsoft Entra
+## Microsoft Entra — General Availability
 
 - [General Availability - External ID regional expansion to Australia and Japan](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---external-id-regional-expansion-to-australia-and-japan) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
   25 Nov 2025
@@ -30,6 +30,22 @@ category: report
 - [General Availability - Trigger workflows for inactive employees and guests in Lifecycle Workflows](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---trigger-workflows-for-inactive-employees-and-guests-in-lifecycle-workflows) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
   25 Nov 2025
 
+## Microsoft Entra — Public preview
+
+- [Public preview - Internet traffic support over GSA remote network connectivity](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---internet-traffic-support-over-gsa-remote-network-connectivity) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
+  25 Nov 2025
+
+- [Public preview - Microsoft Entra ID Protection for Agents](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---microsoft-entra-id-protection-for-agents) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
+  25 Nov 2025
+
+- [Public preview - Microsoft Entra ID with Entra Kerberos has added support for cloud‑only identities](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---microsoft-entra-id-with-entra-kerberos-has-added-support-for-cloudonly-identities) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
+  25 Nov 2025
+
+- [Public preview - Self-remediation for passwordless users](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---self-remediation-for-passwordless-users) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
+  25 Nov 2025
+
+## Microsoft Entra — Public Preview
+
 - [Public Preview - Agent identity sponsor lifecycle support in Lifecycle Workflows](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---agent-identity-sponsor-lifecycle-support-in-lifecycle-workflows) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
   25 Nov 2025
 
@@ -54,16 +70,7 @@ category: report
 - [Public Preview - GSA Cloud Firewall for Remote Networks for Internet Traffic](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---gsa-cloud-firewall-for-remote-networks-for-internet-traffic) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
   25 Nov 2025
 
-- [Public preview - Internet traffic support over GSA remote network connectivity](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---internet-traffic-support-over-gsa-remote-network-connectivity) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
-  25 Nov 2025
-
 - [Public Preview - Microsoft Entra agent registry](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---microsoft-entra-agent-registry) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/341441df2eebdb81c0dfb34e92bd52c947f3c012)
-  25 Nov 2025
-
-- [Public preview - Microsoft Entra ID Protection for Agents](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---microsoft-entra-id-protection-for-agents) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
-  25 Nov 2025
-
-- [Public preview - Microsoft Entra ID with Entra Kerberos has added support for cloud‑only identities](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---microsoft-entra-id-with-entra-kerberos-has-added-support-for-cloudonly-identities) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
   25 Nov 2025
 
 - [Public Preview - New experience for Entra account registration page on Windows](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---new-experience-for-entra-account-registration-page-on-windows) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
@@ -73,9 +80,6 @@ category: report
   25 Nov 2025
 
 - [Public Preview - Secure Web and AI Gateway for Microsoft Copilot Studio Agents](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---secure-web-and-ai-gateway-for-microsoft-copilot-studio-agents) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
-  25 Nov 2025
-
-- [Public preview - Self-remediation for passwordless users](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---self-remediation-for-passwordless-users) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)
   25 Nov 2025
 
 - [Public Preview - Soft Deletion for Cloud Security Groups](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---soft-deletion-for-cloud-security-groups) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/854d7108faaf2b34d134f69863e063758828658b)

@@ -4,7 +4,7 @@ date: 2026-04-01
 category: report
 ---
 
-## Microsoft Entra
+## Microsoft Entra — General Availability
 
 - [General Availability - Enabling Email and SMS OTP MFA in Entra External ID Native Authentication](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---enabling-email-and-sms-otp-mfa-in-entra-external-id-native-authentication) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/0c052311039bfc3c1e29ea7d30c2d85b14a14489)
   01 Apr 2026
@@ -36,6 +36,19 @@ category: report
 - [General Availability – Improved readability for Authentication Methods Policy Update audit logs](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability-improved-readability-for-authentication-methods-policy-update-audit-logs) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/0c052311039bfc3c1e29ea7d30c2d85b14a14489)
   01 Apr 2026
 
+## Microsoft Entra — Public preview
+
+- [Public preview - Secure add-on tenant creation](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---secure-add-on-tenant-creation) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/0c052311039bfc3c1e29ea7d30c2d85b14a14489)
+  01 Apr 2026
+
+- [Public preview - Tenant configuration management administration portal experience](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---tenant-configuration-management-administration-portal-experience) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/0c052311039bfc3c1e29ea7d30c2d85b14a14489)
+  01 Apr 2026
+
+- [Public preview - Tenant governance relationships](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---tenant-governance-relationships) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/0c052311039bfc3c1e29ea7d30c2d85b14a14489)
+  01 Apr 2026
+
+## Microsoft Entra — Public Preview
+
 - [Public Preview - Cross-tenant security group synchronization](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---cross-tenant-security-group-synchronization) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/0c052311039bfc3c1e29ea7d30c2d85b14a14489)
   01 Apr 2026
 
@@ -55,13 +68,4 @@ category: report
   01 Apr 2026
 
 - [Public Preview - Related Tenants](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---related-tenants) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/0c052311039bfc3c1e29ea7d30c2d85b14a14489)
-  01 Apr 2026
-
-- [Public preview - Secure add-on tenant creation](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---secure-add-on-tenant-creation) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/0c052311039bfc3c1e29ea7d30c2d85b14a14489)
-  01 Apr 2026
-
-- [Public preview - Tenant configuration management administration portal experience](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---tenant-configuration-management-administration-portal-experience) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/0c052311039bfc3c1e29ea7d30c2d85b14a14489)
-  01 Apr 2026
-
-- [Public preview - Tenant governance relationships](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---tenant-governance-relationships) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/0c052311039bfc3c1e29ea7d30c2d85b14a14489)
   01 Apr 2026

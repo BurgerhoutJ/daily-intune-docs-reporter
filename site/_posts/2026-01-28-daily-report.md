@@ -6,6 +6,14 @@ category: report
 
 ## Microsoft Entra
 
+- [Private Preview - Federation with EntraID as Custom OIDC IdP on Entra External ID tenants](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#private-preview---federation-with-entraid-as-custom-oidc-idp-on-entra-external-id-tenants) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/f49665dfd9a8809663ff0877f0987ec20145bcb2)
+  28 Jan 2026
+
+- [Public Preview Refresh - EAM Registration](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview-refresh---eam-registration) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/f49665dfd9a8809663ff0877f0987ec20145bcb2)
+  28 Jan 2026
+
+## Microsoft Entra — General Availability
+
 - [General Availability - App-based branding via Branding themes in Entra External ID](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---app-based-branding-via-branding-themes-in-entra-external-id) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/f49665dfd9a8809663ff0877f0987ec20145bcb2)
   28 Jan 2026
 
@@ -22,10 +30,4 @@ category: report
   28 Jan 2026
 
 - [General Availability - Session Control Conditional Access Policies in Entra External ID](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---session-control-conditional-access-policies-in-entra-external-id) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/f49665dfd9a8809663ff0877f0987ec20145bcb2)
-  28 Jan 2026
-
-- [Private Preview - Federation with EntraID as Custom OIDC IdP on Entra External ID tenants](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#private-preview---federation-with-entraid-as-custom-oidc-idp-on-entra-external-id-tenants) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/f49665dfd9a8809663ff0877f0987ec20145bcb2)
-  28 Jan 2026
-
-- [Public Preview Refresh - EAM Registration](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview-refresh---eam-registration) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/f49665dfd9a8809663ff0877f0987ec20145bcb2)
   28 Jan 2026

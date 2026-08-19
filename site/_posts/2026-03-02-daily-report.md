@@ -6,6 +6,14 @@ category: report
 
 ## Microsoft Entra
 
+- [Upcoming change – Microsoft Entra Connect security update to block hard match for privileged roles](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#upcoming-change-microsoft-entra-connect-security-update-to-block-hard-match-for-privileged-roles) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/564dace31a03fa7fc78cc3e11d0d04961cede8fd)
+  02 Mar 2026
+
+- [Upcoming Changes - Jailbreak Detection in Authenticator App](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#upcoming-changes---jailbreak-detection-in-authenticator-app) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/564dace31a03fa7fc78cc3e11d0d04961cede8fd)
+  02 Mar 2026
+
+## Microsoft Entra — General Availability
+
 - [General Availability - Custom banned password lists supported in Microsoft Entra External ID](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---custom-banned-password-lists-supported-in-microsoft-entra-external-id) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/564dace31a03fa7fc78cc3e11d0d04961cede8fd)
   02 Mar 2026
 
@@ -36,14 +44,10 @@ category: report
 - [General Availability - Sign-in with username/alias](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---sign-in-with-usernamealias) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/564dace31a03fa7fc78cc3e11d0d04961cede8fd)
   02 Mar 2026
 
+## Microsoft Entra — Public Preview
+
 - [Public Preview - BYOD support for Windows client using Microsoft Entra registration](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---byod-support-for-windows-client-using-microsoft-entra-registration) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/564dace31a03fa7fc78cc3e11d0d04961cede8fd)
   02 Mar 2026
 
 - [Public Preview - New end user homepage in My Account](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---new-end-user-homepage-in-my-account) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/564dace31a03fa7fc78cc3e11d0d04961cede8fd)
-  02 Mar 2026
-
-- [Upcoming change – Microsoft Entra Connect security update to block hard match for privileged roles](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#upcoming-change-microsoft-entra-connect-security-update-to-block-hard-match-for-privileged-roles) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/564dace31a03fa7fc78cc3e11d0d04961cede8fd)
-  02 Mar 2026
-
-- [Upcoming Changes - Jailbreak Detection in Authenticator App](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#upcoming-changes---jailbreak-detection-in-authenticator-app) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/564dace31a03fa7fc78cc3e11d0d04961cede8fd)
   02 Mar 2026

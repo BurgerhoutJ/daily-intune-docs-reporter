@@ -233,6 +233,13 @@ async function collectWhatsNewItems(window) {
         if (seen.has(key)) continue;
         seen.add(key);
 
+        // Extract sub-category from title prefix (e.g. "General Availability - ...")
+        let subCategory = section.parentCategory || '';
+        if (!subCategory) {
+          const prefixMatch = section.title.match(/^(General Availability|Public Preview|Change Announcement|Retirement)\s*[-—–:]\s*/i);
+          if (prefixMatch) subCategory = prefixMatch[1];
+        }
+
         const anchor = section.title
           .toLowerCase()
           .replace(/[^\w\s-]/g, '')
@@ -240,7 +247,7 @@ async function collectWhatsNewItems(window) {
 
         items.push({
           category: source.label,
-          subCategory: section.parentCategory || '',
+          subCategory,
           title: section.title,
           url: `${source.docsUrl}#${anchor}`,
           commitUrl: commit.html_url,

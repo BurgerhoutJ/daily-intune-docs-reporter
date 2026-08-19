@@ -21,6 +21,17 @@ category: report
 
 ## Microsoft Entra
 
+- [Plan for change - Switch from basic auth to workload identity based auth for SAP SuccessFactors provisioning integrations](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#plan-for-change---switch-from-basic-auth-to-workload-identity-based-auth-for-sap-successfactors-provisioning-integrations) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
+  01 May 2026
+
+- [Plan for change - Update SCIM provisioning applications to use modern authentication](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#plan-for-change---update-scim-provisioning-applications-to-use-modern-authentication) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
+  01 May 2026
+
+- [Upcoming Change - Migrate from Microsoft Entra Connect Sync to Microsoft Entra Cloud Sync](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#upcoming-change---migrate-from-microsoft-entra-connect-sync-to-microsoft-entra-cloud-sync) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
+  01 May 2026
+
+## Microsoft Entra — General Availability
+
 - [General Availability - As an AP requestor, I can see in My Access who my approver(s) are if the access package owner allows me to](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---as-an-ap-requestor-i-can-see-in-my-access-who-my-approvers-are-if-the-access-package-owner-allows-me-to) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
   01 May 2026
 
@@ -66,27 +77,6 @@ category: report
 - [General Availability – Enabling Social Identity Providers in Entra External ID Native Authentication via browser‑delegated (web‑view) flows using SDKs for applications](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability-enabling-social-identity-providers-in-entra-external-id-native-authentication-via-browserdelegated-webview-flows-using-sdks-for-applications) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
   01 May 2026
 
-- [Plan for change - Switch from basic auth to workload identity based auth for SAP SuccessFactors provisioning integrations](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#plan-for-change---switch-from-basic-auth-to-workload-identity-based-auth-for-sap-successfactors-provisioning-integrations) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
-  01 May 2026
-
-- [Plan for change - Update SCIM provisioning applications to use modern authentication](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#plan-for-change---update-scim-provisioning-applications-to-use-modern-authentication) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
-  01 May 2026
-
-- [Public Preview - $count filtering in sign-ins API](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---count-filtering-in-sign-ins-api) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
-  01 May 2026
-
-- [Public Preview - Account Discovery](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---account-discovery) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
-  01 May 2026
-
-- [Public Preview - App-based branding via Branding themes in Microsoft Entra tenants](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---app-based-branding-via-branding-themes-in-microsoft-entra-tenants) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
-  01 May 2026
-
-- [Public Preview - Microsoft Entra ID federation with External ID (EEID)](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---microsoft-entra-id-federation-with-external-id-eeid) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
-  01 May 2026
-
-- [Upcoming Change - Migrate from Microsoft Entra Connect Sync to Microsoft Entra Cloud Sync](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#upcoming-change---migrate-from-microsoft-entra-connect-sync-to-microsoft-entra-cloud-sync) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
-  01 May 2026
-
 ## Microsoft Entra — General Availability - Microsoft Identity Manager (MIM) 2016 Service Pack 3 (SP3)
 
 - [Download and upgrade information](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#download-and-upgrade-information) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
@@ -124,6 +114,20 @@ category: report
   01 May 2026
 
 - [Why this is changing](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#why-this-is-changing) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
+  01 May 2026
+
+## Microsoft Entra — Public Preview
+
+- [Public Preview - $count filtering in sign-ins API](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---count-filtering-in-sign-ins-api) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
+  01 May 2026
+
+- [Public Preview - Account Discovery](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---account-discovery) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
+  01 May 2026
+
+- [Public Preview - App-based branding via Branding themes in Microsoft Entra tenants](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---app-based-branding-via-branding-themes-in-microsoft-entra-tenants) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
+  01 May 2026
+
+- [Public Preview - Microsoft Entra ID federation with External ID (EEID)](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---microsoft-entra-id-federation-with-external-id-eeid) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/79b0353eb42689b655bd78dc17eac5402e41a0a2)
   01 May 2026
 
 ## Microsoft Entra — Upcoming Change - Migrate from Microsoft Entra Connect Sync to Microsoft Entra Cloud Sync

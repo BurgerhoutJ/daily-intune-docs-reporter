@@ -9,6 +9,20 @@ category: report
 - [Expanded policy storage for passkeys (FIDO2) in Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#expanded-policy-storage-for-passkeys-fido2-in-microsoft-entra-id) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/138fb0963c4d02e07d0745b436954e5e987e25b6)
   23 May 2026
 
+- [Plan for change - Conditional Access enforcement during credential registration for Windows Hello for Business and macOS Platform SSO](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#plan-for-change---conditional-access-enforcement-during-credential-registration-for-windows-hello-for-business-and-macos-platform-sso) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/138fb0963c4d02e07d0745b436954e5e987e25b6)
+  23 May 2026
+
+- [Plan for change - Self Service Password Reset will require registered authentication methods only](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#plan-for-change---self-service-password-reset-will-require-registered-authentication-methods-only) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/138fb0963c4d02e07d0745b436954e5e987e25b6)
+  23 May 2026
+
+- [Private Preview - Lifecycle Workflows Relative Time-Based Trigger Support](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#private-preview---lifecycle-workflows-relative-time-based-trigger-support) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/138fb0963c4d02e07d0745b436954e5e987e25b6)
+  23 May 2026
+
+- [Private Preview - OIDC External Claims Management enables Microsoft Entra External ID to act as a true federation broker](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#private-preview---oidc-external-claims-management-enables-microsoft-entra-external-id-to-act-as-a-true-federation-broker) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/138fb0963c4d02e07d0745b436954e5e987e25b6)
+  23 May 2026
+
+## Microsoft Entra — General Availability
+
 - [General Availability - Account Discovery](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---account-discovery) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/138fb0963c4d02e07d0745b436954e5e987e25b6)
   23 May 2026
 
@@ -30,17 +44,7 @@ category: report
 - [General Availability - System-preferred authentication expanded to first-factor in Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---system-preferred-authentication-expanded-to-first-factor-in-microsoft-entra-id) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/eff4b2251a74ad57015bb0aa67ecb8058df67fb9)
   23 May 2026
 
-- [Plan for change - Conditional Access enforcement during credential registration for Windows Hello for Business and macOS Platform SSO](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#plan-for-change---conditional-access-enforcement-during-credential-registration-for-windows-hello-for-business-and-macos-platform-sso) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/138fb0963c4d02e07d0745b436954e5e987e25b6)
-  23 May 2026
-
-- [Plan for change - Self Service Password Reset will require registered authentication methods only](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#plan-for-change---self-service-password-reset-will-require-registered-authentication-methods-only) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/138fb0963c4d02e07d0745b436954e5e987e25b6)
-  23 May 2026
-
-- [Private Preview - Lifecycle Workflows Relative Time-Based Trigger Support](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#private-preview---lifecycle-workflows-relative-time-based-trigger-support) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/138fb0963c4d02e07d0745b436954e5e987e25b6)
-  23 May 2026
-
-- [Private Preview - OIDC External Claims Management enables Microsoft Entra External ID to act as a true federation broker](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#private-preview---oidc-external-claims-management-enables-microsoft-entra-external-id-to-act-as-a-true-federation-broker) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/138fb0963c4d02e07d0745b436954e5e987e25b6)
-  23 May 2026
+## Microsoft Entra — Public Preview
 
 - [Public Preview - Automate setting or clearing user attributes values in Lifecycle workflows](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#public-preview---automate-setting-or-clearing-user-attributes-values-in-lifecycle-workflows) · [view change](https://github.com/MicrosoftDocs/entra-docs/commit/138fb0963c4d02e07d0745b436954e5e987e25b6)
   23 May 2026
