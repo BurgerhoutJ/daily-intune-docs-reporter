@@ -10,19 +10,25 @@ permalink: /archive
 </div>
 
 {% if site.posts.size > 0 %}
-<ul class="archive-list">
+<div class="archive-cards">
   {% for post in site.posts %}
-  <li>
-    <a href="{{ post.url | relative_url }}">
-      <span class="archive-title">
-        {% if post.category == "roadmap" %}<span class="badge">Roadmap</span>{% endif %}
-        {{ post.title }}
-      </span>
-      <span class="archive-date">{{ post.date | date: "%d %b %Y" }}</span>
+  <div class="archive-card">
+    <a href="{{ post.url | relative_url }}" class="archive-card-link">
+      <div class="archive-card-header">
+        <span class="archive-card-title">
+          {% if post.category == "roadmap" %}<span class="badge">Roadmap</span>{% endif %}
+          {{ post.title }}
+        </span>
+        <span class="archive-card-date">{{ post.date | date: "%d %b %Y" }}</span>
+      </div>
+      <p class="archive-card-summary">
+        {% assign headings = post.content | split: '<h2' %}
+        {% for h in headings %}{% if forloop.first %}{% continue %}{% endif %}{% assign heading_text = h | split: '>' | last | split: '</h2>' | first %}{% if forloop.last %}{{ heading_text }}{% else %}{{ heading_text }}, {% endif %}{% endfor %}
+      </p>
     </a>
-  </li>
+  </div>
   {% endfor %}
-</ul>
+</div>
 {% else %}
 <p class="empty">No reports yet. The first report will appear after the next scheduled workflow run.</p>
 {% endif %}

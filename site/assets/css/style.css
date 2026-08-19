@@ -229,7 +229,67 @@ main {
   text-decoration: underline;
 }
 
-/* Archive list */
+/* Archive cards */
+.archive-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.archive-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.archive-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.archive-card-link {
+  display: block;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.archive-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.archive-card-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.archive-card-title .badge {
+  font-size: 0.7rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.archive-card-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-left: 1rem;
+}
+
+.archive-card-summary {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Legacy archive list */
 .archive-list {
   list-style: none;
 }
