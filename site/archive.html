@@ -12,6 +12,7 @@ permalink: /archive
 {% if site.posts.size > 0 %}
 <div class="archive-cards">
   {% for post in site.posts %}
+  {% assign items = post.content | split: '<li>' | size | minus: 1 %}
   <div class="archive-card">
     <a href="{{ post.url | relative_url }}" class="archive-card-link">
       <div class="archive-card-header">
@@ -21,10 +22,7 @@ permalink: /archive
         </span>
         <span class="archive-card-date">{{ post.date | date: "%d %b %Y" }}</span>
       </div>
-      <p class="archive-card-summary">
-        {% assign headings = post.content | split: '<h2' %}
-        {% for h in headings %}{% if forloop.first %}{% continue %}{% endif %}{% assign heading_text = h | split: '>' | last | split: '</h2>' | first %}{% if forloop.last %}{{ heading_text }}{% else %}{{ heading_text }}, {% endif %}{% endfor %}
-      </p>
+      <p class="archive-card-summary">{{ items }} change{% if items != 1 %}s{% endif %}</p>
     </a>
   </div>
   {% endfor %}
