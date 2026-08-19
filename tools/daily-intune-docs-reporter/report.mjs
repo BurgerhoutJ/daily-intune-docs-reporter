@@ -228,6 +228,8 @@ async function collectWhatsNewItems(window) {
         if (/^notices$/i.test(section.title)) continue;
         // Skip category-level headings (e.g. "Device configuration", "App management")
         if (section.level <= 3 && !section.body) continue;
+        const knownCategories = /^(app management|device configuration|device enrollment|device management|device security|intune apps|monitor and troubleshoot|role-based access control|tenant administration|scripts)$/i;
+        if (section.level === 3 && knownCategories.test(section.title)) continue;
 
         const key = `${source.label}::${section.title}`;
         if (seen.has(key)) continue;

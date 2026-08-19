@@ -54,13 +54,24 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.add('active');
     const filter = btn.dataset.filter;
     document.querySelectorAll('.report-card').forEach(card => {
-      if (filter === 'all') { card.style.display = ''; return; }
-      const headings = Array.from(card.querySelectorAll('h2')).map(h => h.textContent.toLowerCase());
-      const match = filter === 'intune' ? headings.some(h => h.includes('intune'))
-        : filter === 'entra' ? headings.some(h => h.includes('entra'))
-        : filter === 'autopilot' ? headings.some(h => h.includes('autopilot'))
-        : headings.some(h => h.includes('windows 365'));
-      card.style.display = match ? '' : 'none';
+      if (filter === 'all') {
+        card.style.display = '';
+        card.querySelectorAll('h2').forEach(h2 => { let el = h2; while ((el = el.nextElementSibling) && el.tagName !== 'H2') el.style.display = ''; h2.style.display = ''; });
+        return;
+      }
+      let hasVisible = false;
+      card.querySelectorAll('h2').forEach(h2 => {
+        const text = h2.textContent.toLowerCase();
+        const match = filter === 'intune' ? text.includes('intune')
+          : filter === 'entra' ? text.includes('entra')
+          : filter === 'autopilot' ? text.includes('autopilot')
+          : text.includes('windows 365');
+        h2.style.display = match ? '' : 'none';
+        let el = h2;
+        while ((el = el.nextElementSibling) && el.tagName !== 'H2') el.style.display = match ? '' : 'none';
+        if (match) hasVisible = true;
+      });
+      card.style.display = hasVisible ? '' : 'none';
     });
   });
 });
