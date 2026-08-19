@@ -22,11 +22,27 @@ permalink: /archive
         </span>
         <span class="archive-card-date">{{ post.date | date: "%d %b %Y" }}</span>
       </div>
-      <p class="archive-card-summary">{{ items }} change{% if items != 1 %}s{% endif %}</p>
+      <p class="archive-card-summary" data-items="{{ items }}"></p>
+      <div class="archive-card-content" hidden>{{ post.content }}</div>
     </a>
   </div>
   {% endfor %}
 </div>
+
+<script>
+document.querySelectorAll('.archive-card').forEach(card => {
+  const hidden = card.querySelector('.archive-card-content');
+  const summary = card.querySelector('.archive-card-summary');
+  const items = summary.dataset.items;
+  const links = hidden.querySelectorAll('a:not([href*="github.com"])');
+  const titles = Array.from(links).slice(0, 3).map(a => a.textContent.trim()).filter(Boolean);
+  const more = links.length > 3 ? '…' : '';
+  summary.textContent = `${items} changes · ${titles.join(', ')}${more}`;
+  hidden.remove();
+});
+</script>
 {% else %}
+<p class="empty">No reports yet. The first report will appear after the next scheduled workflow run.</p>
+{% endif %}
 <p class="empty">No reports yet. The first report will appear after the next scheduled workflow run.</p>
 {% endif %}
