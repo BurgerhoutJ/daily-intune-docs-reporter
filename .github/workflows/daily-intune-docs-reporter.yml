@@ -55,10 +55,9 @@ jobs:
           DOCS_FILE="site/_posts/${REPORT_DATE}-daily-report.md"
           DOCS_MD="tools/daily-intune-docs-reporter/out/report-docs.md"
           if [ ! -f "$DOCS_FILE" ] && [ -f "$DOCS_MD" ]; then
-            TITLE=$(head -1 "$DOCS_MD" | sed 's/^# //')
             {
               echo "---"
-              echo "title: \"${TITLE}\""
+              echo 'title: "Daily Intune & Entra Report"'
               echo "date: ${REPORT_DATE}"
               echo "category: report"
               echo "---"
@@ -75,10 +74,9 @@ jobs:
           if [ ! -f "$ROADMAP_FILE" ] && [ -f "$ROADMAP_MD" ]; then
             # Only create if there are actual roadmap items (not just "No new items")
             if ! grep -q "No new items" "$ROADMAP_MD"; then
-              TITLE="M365 Roadmap Update - ${REPORT_DATE}"
               {
                 echo "---"
-                echo "title: \"${TITLE}\""
+                echo 'title: "M365 Roadmap Update"'
                 echo "date: ${REPORT_DATE}"
                 echo "category: roadmap"
                 echo "---"

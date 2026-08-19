@@ -1,5 +1,5 @@
 ---
-title: "Daily Intune & Entra Report - 2025-12-21"
+title: "Daily Intune & Entra Report"
 date: 2025-12-21
 category: report
 ---
