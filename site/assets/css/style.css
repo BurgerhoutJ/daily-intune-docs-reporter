@@ -73,11 +73,6 @@ body {
   display: block;
 }
 
-.site-byline {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
 .site-title:hover {
   color: var(--accent);
 }
@@ -120,6 +115,12 @@ main {
 .page-header p {
   color: var(--text-secondary);
   font-size: 1rem;
+}
+
+.page-byline {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
 }
 
 /* Report cards */
@@ -447,8 +448,13 @@ main {
 }
 
 .report-content li a[href*="github.com"] {
-  color: var(--text-muted);
+  color: var(--accent);
   font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.report-content li a[href*="github.com"]:hover {
+  opacity: 1;
 }
 
 .report-content p {

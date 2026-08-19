@@ -20,10 +20,7 @@
     <div class="container">
       <div class="site-brand">
         <img src="{{ '/assets/avatar.png' | relative_url }}" alt="Jeroen Burgerhout" class="site-avatar">
-        <div>
-          <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
-          <span class="site-byline">by Jeroen Burgerhout</span>
-        </div>
+        <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
       </div>
       <nav class="site-nav">
         <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a>
