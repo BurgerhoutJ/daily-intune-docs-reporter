@@ -23,11 +23,19 @@
         <img src="{{ '/assets/avatar.png' | relative_url }}" alt="Jeroen Burgerhout" class="site-avatar">
         <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
       </div>
-      <nav class="site-nav">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Toggle navigation menu">
+        <span class="visually-hidden">Toggle navigation menu</span>
+        <span class="nav-toggle-icon" aria-hidden="true">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </span>
+      </button>
+      <nav class="site-nav" id="site-navigation" aria-label="Primary">
         <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a>
         <a href="{{ '/roadmap' | relative_url }}" {% if page.url == '/roadmap' %}class="active"{% endif %}>Roadmap</a>
         <a href="{{ '/archive' | relative_url }}" {% if page.url == '/archive' %}class="active"{% endif %}>Archive</a>
-        <a href="https://github.com/{{ site.github_repo }}" target="_blank">GitHub</a>
+        <a href="https://github.com/{{ site.github_repo }}" target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
     </div>
   </header>
@@ -46,11 +54,11 @@
         </div>
       </div>
       <div class="footer-links">
-        <a href="https://www.burgerhout.org" target="_blank">Blog</a>
-        <a href="https://www.linkedin.com/in/jeroenburgerhout/" target="_blank">LinkedIn</a>
-        <a href="https://bsky.app/profile/jeroen.burgerhout.org" target="_blank">Bluesky</a>
-        <a href="https://youtube.com/@BurgerhoutJ" target="_blank">YouTube</a>
-        <a href="https://github.com/{{ site.github_repo }}" target="_blank">GitHub</a>
+        <a href="https://www.burgerhout.org" target="_blank" rel="noopener noreferrer">Blog</a>
+        <a href="https://www.linkedin.com/in/jeroenburgerhout/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://bsky.app/profile/jeroen.burgerhout.org" target="_blank" rel="noopener noreferrer">Bluesky</a>
+        <a href="https://youtube.com/@BurgerhoutJ" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href="https://github.com/{{ site.github_repo }}" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
       <p class="footer-note">Reports generated daily at 06:00 UTC from Microsoft's documentation repositories.</p>
     </div>
@@ -59,8 +67,62 @@
   <script>
   // Open all external links in new tab
   document.querySelectorAll('.report-content a, .report-items a').forEach(a => {
-    if (a.hostname && a.hostname !== location.hostname) a.target = '_blank';
+    if (a.hostname && a.hostname !== location.hostname) {
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    }
   });
+
+  const navToggle = document.querySelector('.nav-toggle');
+  const siteNav = document.querySelector('#site-navigation');
+  const mobileNav = window.matchMedia('(max-width: 600px)');
+
+  if (navToggle && siteNav) {
+    const setMenuState = isOpen => {
+      document.body.classList.toggle('nav-open', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+      siteNav.setAttribute('aria-hidden', String(mobileNav.matches && !isOpen));
+      siteNav.inert = mobileNav.matches && !isOpen;
+    };
+
+    const syncMenuState = () => {
+      if (!mobileNav.matches) {
+        setMenuState(false);
+        siteNav.removeAttribute('aria-hidden');
+        siteNav.inert = false;
+        return;
+      }
+
+      setMenuState(document.body.classList.contains('nav-open'));
+    };
+
+    navToggle.addEventListener('click', () => {
+      setMenuState(!document.body.classList.contains('nav-open'));
+    });
+
+    siteNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (mobileNav.matches) setMenuState(false);
+      });
+    });
+
+    document.addEventListener('click', event => {
+      if (!mobileNav.matches || !document.body.classList.contains('nav-open')) return;
+      if (!siteNav.contains(event.target) && !navToggle.contains(event.target)) setMenuState(false);
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && document.body.classList.contains('nav-open')) setMenuState(false);
+    });
+
+    if (typeof mobileNav.addEventListener === 'function') {
+      mobileNav.addEventListener('change', syncMenuState);
+    } else if (typeof mobileNav.addListener === 'function') {
+      mobileNav.addListener(syncMenuState);
+    }
+
+    syncMenuState();
+  }
   </script>
 </body>
 </html>
