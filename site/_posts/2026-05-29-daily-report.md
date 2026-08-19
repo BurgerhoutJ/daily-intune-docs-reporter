@@ -6,6 +6,8 @@ category: report
 
 ## Intune
 
+### Role-based access control
+
 - [Intune RBAC roles have access to Copilot in Intune<!-- 37153212 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#intune-rbac-roles-have-access-to-copilot-in-intune---37153212---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/cbd9041472b89dbec60b8fc50d8c5ee54b926497)
   29 May 2026
 

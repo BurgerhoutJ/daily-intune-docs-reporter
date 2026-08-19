@@ -162,6 +162,7 @@ function parseAddedSectionsFromPatch(patch) {
   const lines = patch.split('\n');
   let currentHeading = null;
   let currentBody = [];
+  let currentParentCategory = '';
 
   for (const line of lines) {
     if (!line.startsWith('+') || line.startsWith('+++')) continue;
@@ -170,9 +171,11 @@ function parseAddedSectionsFromPatch(patch) {
     const headingMatch = content.match(/^(#{2,4})\s+(.+)$/);
     if (headingMatch) {
       if (currentHeading) {
-        items.push({ level: currentHeading.level, title: currentHeading.title, body: currentBody.join(' ').trim() });
+        items.push({ level: currentHeading.level, title: currentHeading.title, body: currentBody.join(' ').trim(), parentCategory: currentHeading.parentCategory });
       }
-      currentHeading = { level: headingMatch[1].length, title: headingMatch[2].trim() };
+      const level = headingMatch[1].length;
+      if (level === 3) currentParentCategory = headingMatch[2].trim();
+      currentHeading = { level, title: headingMatch[2].trim(), parentCategory: level === 4 ? currentParentCategory : '' };
       currentBody = [];
       continue;
     }
@@ -182,7 +185,7 @@ function parseAddedSectionsFromPatch(patch) {
     }
   }
   if (currentHeading) {
-    items.push({ level: currentHeading.level, title: currentHeading.title, body: currentBody.join(' ').trim() });
+    items.push({ level: currentHeading.level, title: currentHeading.title, body: currentBody.join(' ').trim(), parentCategory: currentHeading.parentCategory });
   }
   return items;
 }
@@ -237,6 +240,7 @@ async function collectWhatsNewItems(window) {
 
         items.push({
           category: source.label,
+          subCategory: section.parentCategory || '',
           title: section.title,
           url: `${source.docsUrl}#${anchor}`,
           commitUrl: commit.html_url,
@@ -252,7 +256,7 @@ async function collectWhatsNewItems(window) {
     }
   }
 
-  items.sort((a, b) => a.category.localeCompare(b.category) || a.title.localeCompare(b.title));
+  items.sort((a, b) => a.category.localeCompare(b.category) || (a.subCategory || '').localeCompare(b.subCategory || '') || a.title.localeCompare(b.title));
   return items;
 }
 
@@ -338,10 +342,17 @@ function renderMarkdown(items, window, reportDateYmd) {
   }
 
   let currentCategory = null;
+  let currentSubCategory = null;
   for (const item of items) {
     if (item.category !== currentCategory) {
       currentCategory = item.category;
+      currentSubCategory = null;
       lines.push(`## ${currentCategory}`);
+      lines.push('');
+    }
+    if (item.subCategory && item.subCategory !== currentSubCategory) {
+      currentSubCategory = item.subCategory;
+      lines.push(`### ${currentSubCategory}`);
       lines.push('');
     }
     const changeLink = item.commitUrl ? ` · [view change](${item.commitUrl})` : '';
@@ -469,7 +480,7 @@ async function main() {
   const roadmapItems = await collectRoadmapItems(window);
 
   const items = [...docsItems, ...roadmapItems];
-  items.sort((a, b) => a.category.localeCompare(b.category) || a.title.localeCompare(b.title));
+  items.sort((a, b) => a.category.localeCompare(b.category) || (a.subCategory || '').localeCompare(b.subCategory || '') || a.title.localeCompare(b.title));
   console.log(`Total: ${items.length} item(s).`);
 
   const md = renderMarkdown(items, window, window.reportDateYmd);

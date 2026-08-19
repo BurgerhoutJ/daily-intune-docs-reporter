@@ -12,6 +12,8 @@ category: report
 - [Device management](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#device-management) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/07c016beaff195663688c7fbd2803d08c41ada7c)
   19 Jun 2026
 
+### App management
+
 - [Managed Win32 app content now requires HTTPS delivery <!-- 32909316 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#managed-win32-app-content-now-requires-https-delivery----32909316---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/07c016beaff195663688c7fbd2803d08c41ada7c)
   19 Jun 2026
 

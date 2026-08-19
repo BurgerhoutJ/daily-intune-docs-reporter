@@ -6,6 +6,8 @@ category: report
 
 ## Intune
 
+### Device enrollment
+
 - [Complete Platform SSO registration during macOS Automated Device Enrollment <!-- 36767290 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#complete-platform-sso-registration-during-macos-automated-device-enrollment----36767290---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/522d454ad3794f7ef1a54e09dab6c20cad5e4f32)
   28 Apr 2026
 
