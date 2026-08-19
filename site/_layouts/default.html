@@ -11,7 +11,13 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
+      <div class="site-brand">
+        <img src="{{ '/assets/avatar.png' | relative_url }}" alt="Jeroen Burgerhout" class="site-avatar">
+        <div>
+          <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
+          <span class="site-byline">by Jeroen Burgerhout</span>
+        </div>
+      </div>
       <nav class="site-nav">
         <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a>
         <a href="{{ '/roadmap' | relative_url }}" {% if page.url == '/roadmap' %}class="active"{% endif %}>Roadmap</a>
@@ -27,8 +33,21 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>Reports generated daily at 06:00 UTC from Microsoft's documentation repositories.</p>
-      <p><a href="https://github.com/{{ site.github_repo }}">View on GitHub</a> · <a href="https://www.burgerhout.org">burgerhout.org</a></p>
+      <div class="footer-author">
+        <img src="{{ '/assets/avatar.png' | relative_url }}" alt="Jeroen Burgerhout" class="footer-avatar">
+        <div>
+          <strong>Jeroen Burgerhout</strong>
+          <span>Microsoft Intune MVP | MCT</span>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.burgerhout.org" target="_blank">Blog</a>
+        <a href="https://www.linkedin.com/in/jeroenburgerhout/" target="_blank">LinkedIn</a>
+        <a href="https://bsky.app/profile/jeroen.burgerhout.org" target="_blank">Bluesky</a>
+        <a href="https://youtube.com/@BurgerhoutJ" target="_blank">YouTube</a>
+        <a href="https://github.com/{{ site.github_repo }}" target="_blank">GitHub</a>
+      </div>
+      <p class="footer-note">Reports generated daily at 06:00 UTC from Microsoft's documentation repositories.</p>
     </div>
   </footer>
 
