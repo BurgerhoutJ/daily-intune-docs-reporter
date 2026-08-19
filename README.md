@@ -21,6 +21,8 @@ A few things I made sure of along the way:
 - If the daily issue already exists, the workflow adds a refresh comment
   with the latest report, so a re-run doesn't just send an empty email.
 
+There's also a website at [reporter.burgerhout.org](https://reporter.burgerhout.org) that shows the same reports in a browsable format with an archive.
+
 Modeled after [BakkerJan/entra-docs-daily-reporter-example](https://github.com/BakkerJan/entra-docs-daily-reporter-example) - same idea, just added Intune and Autopilot to this.
 
 ## Just Want the Daily Email?
@@ -61,6 +63,9 @@ work for you, fork it and run your own copy - see below.
   - **Intune** — `MicrosoftDocs/memdocs` / `intune/whats-new/index.md`
   - **Windows Autopilot** — `MicrosoftDocs/memdocs` / `autopilot/whats-new.md`
   - **Microsoft Entra** — `MicrosoftDocs/entra-docs` / `docs/fundamentals/whats-new.md`
+- **M365 Roadmap** items for Intune, Entra, and Windows Autopilot pulled
+  from the [public RSS feed](https://www.microsoft.com/en-us/microsoft-365/RoadmapFeatureRSS/)
+  (no auth required) — shown on a separate Roadmap page on the website
 - Each report item links directly to the docs page anchor *and* the commit
   diff on GitHub, so you can see exactly what changed
 - A lean, non-tabular digest instead of a Markdown table: each item is a
@@ -73,8 +78,10 @@ work for you, fork it and run your own copy - see below.
 
 - `.github/workflows/daily-intune-docs-reporter.yml` - schedule and
   publishing workflow
+- `.github/workflows/deploy-site.yml` - GitHub Pages deployment (Jekyll)
 - `tools/daily-intune-docs-reporter/report.mjs` - the report generator
 - `tools/daily-intune-docs-reporter/README.md` - extended configuration guide
+- `site/` - Jekyll site served at [reporter.burgerhout.org](https://reporter.burgerhout.org)
 - `docs/daily-intune-docs-reporter-publish.md` - copy/paste blog section
 
 ## Manual Test
