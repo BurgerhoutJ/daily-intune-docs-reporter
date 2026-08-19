@@ -8,7 +8,8 @@ title: Home
   <p>A daily digest of changes to Microsoft's Intune, Windows Autopilot, and Entra documentation — so you know what changed before your customers ask.</p>
 </div>
 
-{% assign latest = site.posts.first %}
+{% assign report_posts = site.posts | where: "category", "report" %}
+{% assign latest = report_posts.first %}
 {% if latest %}
 <div class="report-card report-full">
   <div class="card-header">
@@ -20,7 +21,7 @@ title: Home
   </div>
 </div>
 
-{% assign recent = site.posts | slice: 1, 5 %}
+{% assign recent = report_posts | slice: 1, 5 %}
 {% if recent.size > 0 %}
 <h2 class="section-heading">Recent Reports</h2>
 {% for post in recent %}

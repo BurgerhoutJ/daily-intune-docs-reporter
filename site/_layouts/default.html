@@ -13,6 +13,7 @@
       <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
       <nav class="site-nav">
         <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a>
+        <a href="{{ '/roadmap' | relative_url }}" {% if page.url == '/roadmap' %}class="active"{% endif %}>Roadmap</a>
         <a href="{{ '/archive' | relative_url }}" {% if page.url == '/archive' %}class="active"{% endif %}>Archive</a>
         <a href="https://github.com/{{ site.github_repo }}" target="_blank">GitHub</a>
       </nav>

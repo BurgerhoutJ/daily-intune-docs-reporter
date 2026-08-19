@@ -45,34 +45,54 @@ jobs:
       - name: Publish report as Jekyll post
         run: |
           REPORT_DATE=$(date -u -d '-1 day' +'%Y-%m-%d')
-          POST_FILE="site/_posts/${REPORT_DATE}-daily-report.md"
-
-          if [ -f "$POST_FILE" ]; then
-            echo "Post $POST_FILE already exists, skipping."
-            exit 0
-          fi
-
-          REPORT_MD="tools/daily-intune-docs-reporter/out/report.md"
-          if [ ! -f "$REPORT_MD" ]; then
-            echo "No report markdown found, skipping."
-            exit 0
-          fi
-
-          # Extract the title from the first heading
-          TITLE=$(head -1 "$REPORT_MD" | sed 's/^# //')
-
-          # Build the Jekyll post: front matter + body (skip the first heading line)
-          {
-            echo "---"
-            echo "title: \"${TITLE}\""
-            echo "date: ${REPORT_DATE}"
-            echo "---"
-            echo ""
-            tail -n +3 "$REPORT_MD"
-          } > "$POST_FILE"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$POST_FILE"
-          git commit -m "Add daily report for ${REPORT_DATE}"
-          git push
+
+          CHANGES=0
+
+          # Docs changes post
+          DOCS_FILE="site/_posts/${REPORT_DATE}-daily-report.md"
+          DOCS_MD="tools/daily-intune-docs-reporter/out/report-docs.md"
+          if [ ! -f "$DOCS_FILE" ] && [ -f "$DOCS_MD" ]; then
+            TITLE=$(head -1 "$DOCS_MD" | sed 's/^# //')
+            {
+              echo "---"
+              echo "title: \"${TITLE}\""
+              echo "date: ${REPORT_DATE}"
+              echo "category: report"
+              echo "---"
+              echo ""
+              tail -n +3 "$DOCS_MD"
+            } > "$DOCS_FILE"
+            git add "$DOCS_FILE"
+            CHANGES=1
+          fi
+
+          # Roadmap post
+          ROADMAP_FILE="site/_posts/${REPORT_DATE}-roadmap.md"
+          ROADMAP_MD="tools/daily-intune-docs-reporter/out/report-roadmap.md"
+          if [ ! -f "$ROADMAP_FILE" ] && [ -f "$ROADMAP_MD" ]; then
+            # Only create if there are actual roadmap items (not just "No new items")
+            if ! grep -q "No new items" "$ROADMAP_MD"; then
+              TITLE="M365 Roadmap Update - ${REPORT_DATE}"
+              {
+                echo "---"
+                echo "title: \"${TITLE}\""
+                echo "date: ${REPORT_DATE}"
+                echo "category: roadmap"
+                echo "---"
+                echo ""
+                tail -n +3 "$ROADMAP_MD"
+              } > "$ROADMAP_FILE"
+              git add "$ROADMAP_FILE"
+              CHANGES=1
+            fi
+          fi
+
+          if [ "$CHANGES" = "1" ]; then
+            git commit -m "Add daily report for ${REPORT_DATE}"
+            git push
+          else
+            echo "No new posts to commit."
+          fi

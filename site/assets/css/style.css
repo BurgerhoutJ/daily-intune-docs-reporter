@@ -223,6 +223,12 @@ main {
   border-bottom: none;
 }
 
+.archive-list .archive-title .badge {
+  font-size: 0.7rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
 .archive-list a {
   display: flex;
   justify-content: space-between;

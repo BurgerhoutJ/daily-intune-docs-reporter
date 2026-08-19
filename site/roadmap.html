@@ -1,0 +1,43 @@
+---
+layout: default
+title: M365 Roadmap
+permalink: /roadmap
+---
+
+<div class="page-header">
+  <h1>M365 Roadmap Updates</h1>
+  <p>Microsoft 365 Roadmap changes for Intune, Entra, and Windows Autopilot — pulled daily from the public RSS feed.</p>
+</div>
+
+{% assign roadmap_posts = site.posts | where: "category", "roadmap" %}
+
+{% if roadmap_posts.size > 0 %}
+{% assign latest = roadmap_posts.first %}
+<div class="report-card report-full">
+  <div class="card-header">
+    <h2 class="card-title"><a href="{{ latest.url | relative_url }}">{{ latest.title }}</a></h2>
+    <span class="card-date">{{ latest.date | date: "%d %b %Y" }}</span>
+  </div>
+  <div class="report-content">
+    {{ latest.content }}
+  </div>
+</div>
+
+{% assign older = roadmap_posts | slice: 1, 10 %}
+{% if older.size > 0 %}
+<h2 class="section-heading">Previous Updates</h2>
+<ul class="archive-list">
+  {% for post in older %}
+  <li>
+    <a href="{{ post.url | relative_url }}">
+      <span class="archive-title">{{ post.title }}</span>
+      <span class="archive-date">{{ post.date | date: "%d %b %Y" }}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% else %}
+<p class="empty">No roadmap updates yet. They'll appear here after the next daily workflow run picks up new items from the M365 Roadmap RSS feed.</p>
+{% endif %}

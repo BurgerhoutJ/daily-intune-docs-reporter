@@ -476,11 +476,17 @@ async function main() {
   const html = renderHtml(items, window, window.reportDateYmd);
   const json = renderJson(items, window, window.reportDateYmd);
 
+  // Separate markdown outputs for the Jekyll site
+  const docsMd = renderMarkdown(docsItems, window, window.reportDateYmd);
+  const roadmapMd = renderMarkdown(roadmapItems, window, window.reportDateYmd);
+
   await mkdir(OUTPUT_DIR, { recursive: true });
   await writeFile(path.join(OUTPUT_DIR, 'report.md'), md, 'utf8');
   await writeFile(path.join(OUTPUT_DIR, 'report.html'), html, 'utf8');
   await writeFile(path.join(OUTPUT_DIR, 'report.json'), json, 'utf8');
-  console.log(`Wrote artifacts to ${OUTPUT_DIR}/ (report.md, report.html, report.json)`);
+  await writeFile(path.join(OUTPUT_DIR, 'report-docs.md'), docsMd, 'utf8');
+  await writeFile(path.join(OUTPUT_DIR, 'report-roadmap.md'), roadmapMd, 'utf8');
+  console.log(`Wrote artifacts to ${OUTPUT_DIR}/`);
 
   if (PUBLISH) {
     if (!GITHUB_TOKEN || !TARGET_REPO) {

@@ -6,7 +6,7 @@ permalink: /archive
 
 <div class="page-header">
   <h1>Report Archive</h1>
-  <p>All daily reports, newest first.</p>
+  <p>All daily reports and roadmap updates, newest first.</p>
 </div>
 
 {% if site.posts.size > 0 %}
@@ -14,7 +14,10 @@ permalink: /archive
   {% for post in site.posts %}
   <li>
     <a href="{{ post.url | relative_url }}">
-      <span class="archive-title">{{ post.title }}</span>
+      <span class="archive-title">
+        {% if post.category == "roadmap" %}<span class="badge">Roadmap</span>{% endif %}
+        {{ post.title }}
+      </span>
       <span class="archive-date">{{ post.date | date: "%d %b %Y" }}</span>
     </a>
   </li>
