@@ -428,6 +428,11 @@ main {
   text-decoration: underline;
 }
 
+.report-content li a[href*="github.com"] {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
 .report-content p {
   font-size: 0.9rem;
   color: var(--text-secondary);

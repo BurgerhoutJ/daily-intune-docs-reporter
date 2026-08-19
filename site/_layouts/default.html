@@ -31,5 +31,12 @@
       <p><a href="https://github.com/{{ site.github_repo }}">View on GitHub</a> · <a href="https://www.burgerhout.org">burgerhout.org</a></p>
     </div>
   </footer>
+
+  <script>
+  // Open all external links in new tab
+  document.querySelectorAll('.report-content a, .report-items a').forEach(a => {
+    if (a.hostname && a.hostname !== location.hostname) a.target = '_blank';
+  });
+  </script>
 </body>
 </html>

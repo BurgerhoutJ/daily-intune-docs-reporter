@@ -344,7 +344,8 @@ function renderMarkdown(items, window, reportDateYmd) {
       lines.push(`## ${currentCategory}`);
       lines.push('');
     }
-    lines.push(`- [${item.title}](${item.url})`);
+    const changeLink = item.commitUrl ? ` · [view change](${item.commitUrl})` : '';
+    lines.push(`- [${item.title}](${item.url})${changeLink}`);
     lines.push(`  ${item.dateLabel}`);
     lines.push('');
   }

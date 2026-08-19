@@ -6,5 +6,5 @@ category: report
 
 ## Intune
 
-- [Guidance for device-reported values in compliance reports<!-- 37725884 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#guidance-for-device-reported-values-in-compliance-reports---37725884---)
+- [Guidance for device-reported values in compliance reports<!-- 37725884 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#guidance-for-device-reported-values-in-compliance-reports---37725884---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/cd586cc0cd5b43d2d299839062941e337ece1a4f)
   21 May 2026
