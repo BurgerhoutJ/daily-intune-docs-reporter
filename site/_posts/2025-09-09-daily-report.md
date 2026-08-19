@@ -6,5 +6,5 @@ category: report
 
 ## Microsoft Entra
 
-- [General Availability - Microsoft Entra ID Protection: Improved detection quality](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---microsoft-entra-id-protection-improved-detection-quality) ([diff](https://github.com/MicrosoftDocs/entra-docs/commit/5e0d8a60f03f64023d5d3b82818ed13a7958d603))
+- [General Availability - Microsoft Entra ID Protection: Improved detection quality](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---microsoft-entra-id-protection-improved-detection-quality)
   09 Sept 2025

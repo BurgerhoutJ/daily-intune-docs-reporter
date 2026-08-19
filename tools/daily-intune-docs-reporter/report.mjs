@@ -344,8 +344,7 @@ function renderMarkdown(items, window, reportDateYmd) {
       lines.push(`## ${currentCategory}`);
       lines.push('');
     }
-    const diffLink = item.commitUrl ? ` ([diff](${item.commitUrl}))` : '';
-    lines.push(`- [${item.title}](${item.url})${diffLink}`);
+    lines.push(`- [${item.title}](${item.url})`);
     lines.push(`  ${item.dateLabel}`);
     lines.push('');
   }

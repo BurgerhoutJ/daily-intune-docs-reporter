@@ -6,5 +6,5 @@ category: report
 
 ## Microsoft Entra
 
-- [General Availability - Client Credentials in Entra External ID](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---client-credentials-in-entra-external-id) ([diff](https://github.com/MicrosoftDocs/entra-docs/commit/68a7fa137c446c4a7c1f62d52bb36343986c91c3))
+- [General Availability - Client Credentials in Entra External ID](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---client-credentials-in-entra-external-id)
   30 Jan 2026

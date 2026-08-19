@@ -6,5 +6,5 @@ category: report
 
 ## Microsoft Entra
 
-- [Plan for Change - Update to Revoke Multifactor Authentication Sessions](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#plan-for-change---update-to-revoke-multifactor-authentication-sessions) ([diff](https://github.com/MicrosoftDocs/entra-docs/commit/a48499782014a9186bd2e8ff63ed79257eb4c071))
+- [Plan for Change - Update to Revoke Multifactor Authentication Sessions](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#plan-for-change---update-to-revoke-multifactor-authentication-sessions)
   01 Nov 2025

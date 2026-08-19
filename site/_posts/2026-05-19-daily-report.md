@@ -6,5 +6,5 @@ category: report
 
 ## Intune
 
-- [Clarified guidance for the Setting Value field in compliance reporting<!-- 37725884 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#clarified-guidance-for-the-setting-value-field-in-compliance-reporting---37725884---) ([diff](https://github.com/MicrosoftDocs/memdocs/commit/92719c64604edaa9a08c204936adc20182e65eaa))
+- [Clarified guidance for the Setting Value field in compliance reporting<!-- 37725884 -->](https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new#clarified-guidance-for-the-setting-value-field-in-compliance-reporting---37725884---)
   19 May 2026
