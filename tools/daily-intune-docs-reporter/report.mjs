@@ -261,7 +261,7 @@ async function collectWhatsNewItems(window) {
 // ---------------------------------------------------------------------------
 
 const ROADMAP_RSS_URL = 'https://www.microsoft.com/en-us/microsoft-365/RoadmapFeatureRSS/';
-const ROADMAP_PRODUCT_FILTERS = ['Microsoft Intune', 'Microsoft Entra', 'Windows Autopilot'];
+const ROADMAP_PRODUCT_FILTERS = ['Microsoft Intune', 'Microsoft Entra', 'Windows Autopilot', 'Windows 365'];
 
 async function collectRoadmapItems(window) {
   let xml;
