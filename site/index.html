@@ -21,6 +21,13 @@ title: Home
   <div id="calendar" class="calendar-grid"></div>
 </div>
 
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="intune">Intune</button>
+  <button class="filter-btn" data-filter="entra">Entra</button>
+  <button class="filter-btn" data-filter="autopilot">Autopilot</button>
+</div>
+
 {% for post in report_posts %}
 <div class="report-card report-full" data-date="{{ post.date | date: '%Y-%m-%d' }}">
   <div class="card-header">
@@ -38,6 +45,24 @@ title: Home
 {% endif %}
 
 <script>
+// Category filter
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.report-card').forEach(card => {
+      if (filter === 'all') { card.style.display = ''; return; }
+      const text = card.textContent.toLowerCase();
+      const match = filter === 'intune' ? text.includes('intune')
+        : filter === 'entra' ? text.includes('entra')
+        : text.includes('autopilot');
+      card.style.display = match ? '' : 'none';
+    });
+  });
+});
+
+// Calendar
 (function() {
   const cards = document.querySelectorAll('.report-card[data-date]');
   const postDates = new Set();
