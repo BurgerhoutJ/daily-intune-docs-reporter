@@ -4,13 +4,8 @@ url: "https://reporter.burgerhout.org"
 baseurl: ""
 
 github_repo: BurgerhoutJ/daily-intune-docs-reporter
-future: true
 
 permalink: /:year/:month/:day/
-
-exclude:
-  - Gemfile
-  - .gitkeep
 
 defaults:
   - scope:
