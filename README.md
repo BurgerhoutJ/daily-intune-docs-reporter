@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="site/assets/avatar.png" alt="Daily Intune & Entra Docs Reporter" width="80">
+</p>
+
 # Daily Intune & Entra Docs Reporter
 
 Hey there,
