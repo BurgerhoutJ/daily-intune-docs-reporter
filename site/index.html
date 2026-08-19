@@ -54,10 +54,11 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     const filter = btn.dataset.filter;
     document.querySelectorAll('.report-card').forEach(card => {
       if (filter === 'all') { card.style.display = ''; return; }
-      const text = card.textContent.toLowerCase();
-      const match = filter === 'intune' ? text.includes('intune')
-        : filter === 'entra' ? text.includes('entra')
-        : text.includes('autopilot');
+      // Match against H2 headings only (category labels)
+      const headings = Array.from(card.querySelectorAll('h2')).map(h => h.textContent.toLowerCase());
+      const match = filter === 'intune' ? headings.some(h => h.startsWith('intune'))
+        : filter === 'entra' ? headings.some(h => h.startsWith('microsoft entra'))
+        : headings.some(h => h.startsWith('windows autopilot'));
       card.style.display = match ? '' : 'none';
     });
   });
