@@ -23,7 +23,7 @@
         <img src="{{ '/assets/avatar.png' | relative_url }}" alt="Jeroen Burgerhout" class="site-avatar">
         <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
       </div>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Toggle navigation menu">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
         <span class="visually-hidden">Toggle navigation menu</span>
         <span class="nav-toggle-icon" aria-hidden="true">
           <span class="nav-toggle-bar"></span>
@@ -112,7 +112,10 @@
     });
 
     document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && document.body.classList.contains('nav-open')) setMenuState(false);
+      if (event.key === 'Escape' && document.body.classList.contains('nav-open')) {
+        setMenuState(false);
+        navToggle.focus();
+      }
     });
 
     if (typeof mobileNav.addEventListener === 'function') {
