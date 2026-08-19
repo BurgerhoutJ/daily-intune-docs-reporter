@@ -8,6 +8,31 @@ title: Home
   <p>A daily digest of changes to Microsoft's Intune, Windows Autopilot, and Entra documentation — so you know what changed before your customers ask.</p>
 </div>
 
-<div id="latest-report">
-  <div class="loading">Loading latest report…</div>
+{% assign latest = site.posts.first %}
+{% if latest %}
+<div class="report-card report-full">
+  <div class="card-header">
+    <h2 class="card-title"><a href="{{ latest.url | relative_url }}">{{ latest.title }}</a></h2>
+    <span class="card-date">{{ latest.date | date: "%d %b %Y" }}</span>
+  </div>
+  <div class="report-content">
+    {{ latest.content }}
+  </div>
 </div>
+
+{% assign recent = site.posts | slice: 1, 5 %}
+{% if recent.size > 0 %}
+<h2 class="section-heading">Recent Reports</h2>
+{% for post in recent %}
+<div class="report-card">
+  <div class="card-header">
+    <h3 class="card-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    <span class="card-date">{{ post.date | date: "%d %b %Y" }}</span>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% else %}
+<p class="empty">No reports yet. The first report will appear after the next scheduled workflow run.</p>
+{% endif %}

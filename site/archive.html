@@ -9,6 +9,17 @@ permalink: /archive
   <p>All daily reports, newest first.</p>
 </div>
 
-<div id="archive-list">
-  <div class="loading">Loading archive…</div>
-</div>
+{% if site.posts.size > 0 %}
+<ul class="archive-list">
+  {% for post in site.posts %}
+  <li>
+    <a href="{{ post.url | relative_url }}">
+      <span class="archive-title">{{ post.title }}</span>
+      <span class="archive-date">{{ post.date | date: "%d %b %Y" }}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="empty">No reports yet. The first report will appear after the next scheduled workflow run.</p>
+{% endif %}
