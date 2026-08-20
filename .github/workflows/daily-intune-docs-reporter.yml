@@ -55,17 +55,19 @@ jobs:
           DOCS_FILE="site/_posts/${REPORT_DATE}-daily-report.md"
           DOCS_MD="tools/daily-intune-docs-reporter/out/report-docs.md"
           if [ ! -f "$DOCS_FILE" ] && [ -f "$DOCS_MD" ]; then
-            {
-              echo "---"
-              echo 'title: "Daily Intune & Entra Report"'
-              echo "date: ${REPORT_DATE}"
-              echo "category: report"
-              echo "---"
-              echo ""
-              tail -n +3 "$DOCS_MD"
-            } > "$DOCS_FILE"
-            git add "$DOCS_FILE"
-            CHANGES=1
+            if ! grep -q "No new items" "$DOCS_MD"; then
+              {
+                echo "---"
+                echo 'title: "Daily Intune & Entra Report"'
+                echo "date: ${REPORT_DATE}"
+                echo "category: report"
+                echo "---"
+                echo ""
+                tail -n +3 "$DOCS_MD"
+              } > "$DOCS_FILE"
+              git add "$DOCS_FILE"
+              CHANGES=1
+            fi
           fi
 
           # Roadmap post
