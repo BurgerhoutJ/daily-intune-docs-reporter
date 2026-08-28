@@ -31,7 +31,7 @@ jobs:
         run: node report.mjs --publish
         working-directory: tools/daily-intune-docs-reporter
         env:
-          GITHUB_TOKEN: ${{ secrets.REPORTER_PAT }}
+          GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
 
       - name: Upload report artifacts

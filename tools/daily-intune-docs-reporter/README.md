@@ -11,9 +11,9 @@ daily GitHub issue.
 - Node.js 18+ (uses native `fetch`; no dependencies to install)
 - A `GITHUB_TOKEN` environment variable is required in the script runtime
   to read commits on the source repos and to publish issues.
-- In GitHub Actions, GitHub forbids secret names starting with `GITHUB_`,
-  so the repo secret is typically named `REPORTER_PAT` and then mapped to
-  `GITHUB_TOKEN` in the workflow.
+- In GitHub Actions, the built-in `github.token` is the preferred option
+  because the workflow grants the required `issues: write` and `contents: write`
+  permissions.
 
 ## Run locally
 
@@ -25,16 +25,16 @@ GITHUB_TOKEN=ghp_xxx node report.mjs --publish         # also create/refresh the
 `--publish` requires `GITHUB_REPOSITORY` to be set to `owner/repo` (GitHub
 Actions sets this automatically; set it yourself for local testing).
 
-## GitHub Actions secret setup
+## GitHub Actions token setup
 
 ```yaml
 env:
-  GITHUB_TOKEN: ${{ secrets.REPORTER_PAT }}
+  GITHUB_TOKEN: ${{ github.token }}
+  GITHUB_REPOSITORY: ${{ github.repository }}
 ```
 
-Create a repository secret named `REPORTER_PAT` in GitHub, then map it to
-`GITHUB_TOKEN` as shown above. The script itself still reads the runtime
-variable named `GITHUB_TOKEN`.
+This is the recommended setup for Actions. If you do use a PAT instead, it
+must have Issues read/write permission on the target repository.
 
 ## Configuration
 
