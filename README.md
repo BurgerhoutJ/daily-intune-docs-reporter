@@ -99,6 +99,9 @@ gh run list --workflow "daily-intune-docs-reporter.yml" --repo <owner>/<repo> --
   in the workflow's `env:` block
 - Tracked sources: edit the `WHATS_NEW_SOURCES` list at the top
   of `tools/daily-intune-docs-reporter/report.mjs`
+- GitHub Actions secret: create a repository secret named `REPORTER_PAT`
+  and map it to `GITHUB_TOKEN` in the workflow, because GitHub forbids
+  secrets that start with `GITHUB_`.
 
 ## Notes
 
