@@ -66,6 +66,7 @@ Edit the `WHATS_NEW_SOURCES` array at the top of `report.mjs`:
 const WHATS_NEW_SOURCES = [
   { repo: 'MicrosoftDocs/memdocs', path: 'intune/whats-new/index.md', branch: 'main', label: 'Intune', docsUrl: '...' },
   { repo: 'MicrosoftDocs/memdocs', path: 'autopilot/whats-new.md', branch: 'main', label: 'Windows Autopilot', docsUrl: '...' },
+  { repo: 'MicrosoftDocs/memdocs', path: 'autopilot/device-preparation/whats-new.md', branch: 'main', label: 'Windows Autopilot device preparation', docsUrl: '...' },
   { repo: 'MicrosoftDocs/entra-docs', path: 'docs/fundamentals/whats-new.md', branch: 'main', label: 'Microsoft Entra', docsUrl: '...' },
 ];
 ```

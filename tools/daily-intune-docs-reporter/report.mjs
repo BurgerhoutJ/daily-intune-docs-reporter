@@ -61,6 +61,13 @@ const WHATS_NEW_SOURCES = [
     docsUrl: 'https://learn.microsoft.com/en-us/autopilot/whats-new',
   },
   {
+    repo: 'MicrosoftDocs/memdocs',
+    path: 'autopilot/device-preparation/whats-new.md',
+    branch: 'main',
+    label: 'Windows Autopilot device preparation',
+    docsUrl: 'https://learn.microsoft.com/en-us/autopilot/device-preparation/whats-new',
+  },
+  {
     repo: 'MicrosoftDocs/entra-docs',
     path: 'docs/fundamentals/whats-new.md',
     branch: 'main',

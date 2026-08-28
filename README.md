@@ -58,10 +58,11 @@ work for you, fork it and run your own copy - see below.
 
 - A strict 24-hour report window - no multi-day section cluttering the
   issue body
-- Three products tracked by checking git diffs on their source markdown
+- Four product areas tracked by checking git diffs on their source markdown
   files in the public `MicrosoftDocs` repos:
   - **Intune** — `MicrosoftDocs/memdocs` / `intune/whats-new/index.md`
   - **Windows Autopilot** — `MicrosoftDocs/memdocs` / `autopilot/whats-new.md`
+  - **Windows Autopilot device preparation** — `MicrosoftDocs/memdocs` / `autopilot/device-preparation/whats-new.md`
   - **Microsoft Entra** — `MicrosoftDocs/entra-docs` / `docs/fundamentals/whats-new.md`
 - **M365 Roadmap** items for Intune, Entra, and Windows Autopilot pulled
   from the [public RSS feed](https://www.microsoft.com/en-us/microsoft-365/RoadmapFeatureRSS/)
