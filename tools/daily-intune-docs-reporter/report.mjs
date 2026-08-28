@@ -51,7 +51,7 @@ const WHATS_NEW_SOURCES = [
     path: 'intune/whats-new/index.md',
     branch: 'main',
     label: 'Intune',
-    docsUrl: 'https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new',
+    docsUrl: 'learn.microsoft.com/en-us/intune/whats-new/',
   },
   {
     repo: 'MicrosoftDocs/memdocs',
