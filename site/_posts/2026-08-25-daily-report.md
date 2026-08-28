@@ -4,7 +4,7 @@ date: 2026-08-25
 category: report
 ---
 
-Intune
+## Intune
 - [Unattended Remote Help sessions for Windows devices<!-- 9052232 -->](https://learn.microsoft.com/en-us/intune/whats-new/#unattended-remote-help-sessions-for-windows-devices---9052232---) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/23ca5eb300001bb9235f1cc729c7a937ab1501ef)
   25 Aug 2026
 

@@ -4,7 +4,7 @@ date: 2025-04-03
 category: report
 ---
 
-Intune
+## Intune
 - [Updates to Windows Autopilot device targeting infrastructure](https://learn.microsoft.com/en-us/autopilot/whats-new#updates-to-windows-autopilot-device-targeting-infrastructure) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/37e7ad7a4bc5f4460fff5b4e80d386ff8432dfa5)
   03 Apr 2025
 
@@ -14,7 +14,7 @@ Intune
 - [Windows Autopilot profile resiliency](https://learn.microsoft.com/en-us/autopilot/whats-new#windows-autopilot-profile-resiliency) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/37e7ad7a4bc5f4460fff5b4e80d386ff8432dfa5)
   03 Apr 2025
 
-Windows Autopilot
+## Windows Autopilot
 - [Updates to Windows Autopilot device targeting infrastructure](https://learn.microsoft.com/en-us/autopilot/whats-new#updates-to-windows-autopilot-device-targeting-infrastructure) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/37e7ad7a4bc5f4460fff5b4e80d386ff8432dfa5)
   03 Apr 2025
 
@@ -24,7 +24,7 @@ Windows Autopilot
 - [Windows Autopilot profile resiliency](https://learn.microsoft.com/en-us/autopilot/whats-new#windows-autopilot-profile-resiliency) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/37e7ad7a4bc5f4460fff5b4e80d386ff8432dfa5)
   03 Apr 2025
 
-Microsoft Entra
+## Microsoft Entra
 - [Updates to Windows Autopilot device targeting infrastructure](https://learn.microsoft.com/en-us/autopilot/whats-new#updates-to-windows-autopilot-device-targeting-infrastructure) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/37e7ad7a4bc5f4460fff5b4e80d386ff8432dfa5)
   03 Apr 2025
 

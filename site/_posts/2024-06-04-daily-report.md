@@ -4,7 +4,7 @@ date: 2024-06-04
 category: report
 ---
 
-Intune
+## Intune
 - [Autopilot automatic device diagnostics collection <!--1895390-->](https://learn.microsoft.com/en-us/autopilot/whats-new#autopilot-automatic-device-diagnostics-collection---1895390--) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/20997cbdc0e2d547a5c866a21f806679c5808a14)
   04 Jun 2024
 
@@ -92,7 +92,7 @@ Intune
 - [Windows Autopilot support for Microsoft Teams Rooms](https://learn.microsoft.com/en-us/autopilot/whats-new#windows-autopilot-support-for-microsoft-teams-rooms) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/20997cbdc0e2d547a5c866a21f806679c5808a14)
   04 Jun 2024
 
-Windows Autopilot
+## Windows Autopilot
 - [Autopilot automatic device diagnostics collection <!--1895390-->](https://learn.microsoft.com/en-us/autopilot/whats-new#autopilot-automatic-device-diagnostics-collection---1895390--) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/20997cbdc0e2d547a5c866a21f806679c5808a14)
   04 Jun 2024
 
@@ -180,7 +180,7 @@ Windows Autopilot
 - [Windows Autopilot support for Microsoft Teams Rooms](https://learn.microsoft.com/en-us/autopilot/whats-new#windows-autopilot-support-for-microsoft-teams-rooms) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/20997cbdc0e2d547a5c866a21f806679c5808a14)
   04 Jun 2024
 
-Microsoft Entra
+## Microsoft Entra
 - [Autopilot automatic device diagnostics collection <!--1895390-->](https://learn.microsoft.com/en-us/autopilot/whats-new#autopilot-automatic-device-diagnostics-collection---1895390--) · [view change](https://github.com/MicrosoftDocs/memdocs/commit/20997cbdc0e2d547a5c866a21f806679c5808a14)
   04 Jun 2024
 
