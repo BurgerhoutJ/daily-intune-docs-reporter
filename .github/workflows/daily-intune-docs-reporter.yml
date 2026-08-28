@@ -64,7 +64,7 @@ jobs:
                 echo "category: report"
                 echo "---"
                 echo ""
-                tail -n +3 "$DOCS_MD"
+                tail -n +5 "$DOCS_MD"
               } > "$DOCS_FILE"
               git add "$DOCS_FILE"
               CHANGES=1
@@ -84,7 +84,7 @@ jobs:
                 echo "category: roadmap"
                 echo "---"
                 echo ""
-                tail -n +3 "$ROADMAP_MD"
+                tail -n +5 "$ROADMAP_MD"
               } > "$ROADMAP_FILE"
               git add "$ROADMAP_FILE"
               CHANGES=1
