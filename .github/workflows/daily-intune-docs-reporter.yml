@@ -51,6 +51,11 @@ jobs:
 
           CHANGES=0
 
+          # Live-page fallback dedup state (advances most runs even when
+          # there's no new item to post, so it's staged unconditionally and
+          # only committed if it actually changed).
+          git add tools/daily-intune-docs-reporter/state
+
           # Docs changes post
           DOCS_FILE="site/_posts/${REPORT_DATE}-daily-report.md"
           DOCS_MD="tools/daily-intune-docs-reporter/out/report-docs.md"
@@ -88,6 +93,10 @@ jobs:
               git add "$ROADMAP_FILE"
               CHANGES=1
             fi
+          fi
+
+          if ! git diff --cached --quiet; then
+            CHANGES=1
           fi
 
           if [ "$CHANGES" = "1" ]; then
