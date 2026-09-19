@@ -227,5 +227,21 @@
   "Microsoft Entra::General Availability - Service Principal creation audit logs for alerting & monitoring": "2026-01-01T00:00:00.000Z",
   "Microsoft Entra::General Availability - Session Control Conditional Access Policies in Entra External ID": "2026-01-01T00:00:00.000Z",
   "Microsoft Entra::General Availability - Entra Private Access for Domain Controllers": "2026-01-01T00:00:00.000Z",
-  "Microsoft Entra::General Availability - Improved enforcement for All resources policies with resource exclusions": "2026-01-01T00:00:00.000Z"
+  "Microsoft Entra::General Availability - Improved enforcement for All resources policies with resource exclusions": "2026-01-01T00:00:00.000Z",
+  "Windows Autopilot device preparation::Performance and reliability improvements for Windows Autopilot device preparation": "2026-09-14T00:00:00.000Z",
+  "Windows Autopilot device preparation::Windows Autopilot device association": "2026-08-27T00:00:00.000Z",
+  "Windows Autopilot device preparation::Windows Autopilot device preparation in automatic mode for Windows 365 general availability": "2026-05-11T00:00:00.000Z",
+  "Windows Autopilot device preparation::Managed installer policy support during Windows Autopilot device preparation": "2026-04-10T00:00:00.000Z",
+  "Windows Autopilot device preparation::Admins can configure up to 25 apps to install during Autopilot device preparation": "2026-01-30T00:00:00.000Z",
+  "Windows Autopilot device preparation::Windows Autopilot device preparation in automatic mode for Windows 365 Enterprise, Windows 365 Frontline in dedicated mode, and Windows 365 Cloud Apps is in public preview": "2025-11-21T00:00:00.000Z",
+  "Windows Autopilot device preparation::Installation of monthly security update releases during Windows Autopilot device preparation": "2025-09-03T00:00:00.000Z",
+  "Windows Autopilot device preparation::Deliver Enterprise App Catalog (EAM) apps during Autopilot device preparation": "2025-06-26T00:00:00.000Z",
+  "Windows Autopilot device preparation::Windows Autopilot device preparation in automatic mode for Windows 365 Frontline in shared mode is in public preview": "2025-04-02T00:00:00.000Z",
+  "Windows Autopilot device preparation::Diagnostics logs automatically available in Windows Autopilot device preparation deployment status report": "2024-10-09T00:00:00.000Z",
+  "Windows Autopilot device preparation::Windows Autopilot Device Preparation Support in Intune operated by 21Vianet in China": "2024-09-18T00:00:00.000Z",
+  "Windows Autopilot device preparation::enrollmentProfileName property is now populated with the Device preparation policy name": "2024-09-13T00:00:00.000Z",
+  "Windows Autopilot device preparation::Windows Autopilot device preparation deployment status report available in the Monitor tab under Enrollment": "2024-08-21T00:00:00.000Z",
+  "Windows Autopilot device preparation::Corporate identifiers can now be used with Windows Autopilot device preparation": "2024-07-08T00:00:00.000Z",
+  "Windows Autopilot device preparation::Additional role-based access control (RBAC) permissions for Managed apps and Mobile apps": "2024-06-18T00:00:00.000Z",
+  "Windows Autopilot device preparation::Initial release of Windows Autopilot device preparation": "2024-06-03T00:00:00.000Z"
 }
