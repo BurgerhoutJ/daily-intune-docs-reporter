@@ -95,7 +95,7 @@ const WHATS_NEW_SOURCES = [
     path: 'intune/whats-new/index.md',
     branch: 'main',
     label: 'Intune',
-    docsUrl: 'https://learn.microsoft.com/en-us/mem/intune/fundamentals/whats-new',
+    docsUrl: 'https://learn.microsoft.com/en-us/intune/whats-new/',
     itemHeadingLevel: 4,
   },
   {
@@ -105,6 +105,13 @@ const WHATS_NEW_SOURCES = [
     label: 'Windows Autopilot',
     docsUrl: 'https://learn.microsoft.com/en-us/autopilot/whats-new',
     itemHeadingLevel: 2,
+  },
+  {
+    repo: 'MicrosoftDocs/memdocs',
+    path: 'autopilot/device-preparation/whats-new.md',
+    branch: 'main',
+    label: 'Windows Autopilot device preparation',
+    docsUrl: 'https://learn.microsoft.com/en-us/autopilot/device-preparation/whats-new',
   },
   {
     repo: 'MicrosoftDocs/entra-docs',

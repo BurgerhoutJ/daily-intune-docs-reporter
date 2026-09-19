@@ -9,8 +9,11 @@ daily GitHub issue.
 ## Requirements
 
 - Node.js 18+ (uses native `fetch`; no dependencies to install)
-- A `GITHUB_TOKEN` — needed to read commits on the source repos (the
-  built-in Actions token works for public repos). Also used for `--publish`.
+- A `GITHUB_TOKEN` environment variable is required in the script runtime
+  to read commits on the source repos and to publish issues.
+- In GitHub Actions, the built-in `github.token` is the preferred option
+  because the workflow grants the required `issues: write` and `contents: write`
+  permissions.
 
 ## Run locally
 
@@ -21,6 +24,17 @@ GITHUB_TOKEN=ghp_xxx node report.mjs --publish         # also create/refresh the
 
 `--publish` requires `GITHUB_REPOSITORY` to be set to `owner/repo` (GitHub
 Actions sets this automatically; set it yourself for local testing).
+
+## GitHub Actions token setup
+
+```yaml
+env:
+  GITHUB_TOKEN: ${{ github.token }}
+  GITHUB_REPOSITORY: ${{ github.repository }}
+```
+
+This is the recommended setup for Actions. If you do use a PAT instead, it
+must have Issues read/write permission on the target repository.
 
 ## Configuration
 
@@ -52,6 +66,7 @@ Edit the `WHATS_NEW_SOURCES` array at the top of `report.mjs`:
 const WHATS_NEW_SOURCES = [
   { repo: 'MicrosoftDocs/memdocs', path: 'intune/whats-new/index.md', branch: 'main', label: 'Intune', docsUrl: '...' },
   { repo: 'MicrosoftDocs/memdocs', path: 'autopilot/whats-new.md', branch: 'main', label: 'Windows Autopilot', docsUrl: '...' },
+  { repo: 'MicrosoftDocs/memdocs', path: 'autopilot/device-preparation/whats-new.md', branch: 'main', label: 'Windows Autopilot device preparation', docsUrl: '...' },
   { repo: 'MicrosoftDocs/entra-docs', path: 'docs/fundamentals/whats-new.md', branch: 'main', label: 'Microsoft Entra', docsUrl: '...' },
 ];
 ```
