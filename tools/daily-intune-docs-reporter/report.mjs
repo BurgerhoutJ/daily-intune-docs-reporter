@@ -112,6 +112,7 @@ const WHATS_NEW_SOURCES = [
     branch: 'main',
     label: 'Windows Autopilot device preparation',
     docsUrl: 'https://learn.microsoft.com/en-us/autopilot/device-preparation/whats-new',
+    itemHeadingLevel: 2,
   },
   {
     repo: 'MicrosoftDocs/entra-docs',
@@ -339,6 +340,11 @@ function parseWhatsNewLivePage(html, itemHeadingLevel) {
 }
 
 async function collectWhatsNewLiveFallback(source, seenState) {
+  if (!source.itemHeadingLevel) {
+    console.warn(`    Live-page fallback skipped for ${source.label}: no itemHeadingLevel configured.`);
+    return [];
+  }
+
   let html;
   try {
     const res = await fetch(source.docsUrl, { headers: { 'User-Agent': 'daily-intune-docs-reporter (+github-actions)' } });
