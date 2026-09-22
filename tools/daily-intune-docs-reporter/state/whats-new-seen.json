@@ -243,5 +243,6 @@
   "Windows Autopilot device preparation::Windows Autopilot device preparation deployment status report available in the Monitor tab under Enrollment": "2024-08-21T00:00:00.000Z",
   "Windows Autopilot device preparation::Corporate identifiers can now be used with Windows Autopilot device preparation": "2024-07-08T00:00:00.000Z",
   "Windows Autopilot device preparation::Additional role-based access control (RBAC) permissions for Managed apps and Mobile apps": "2024-06-18T00:00:00.000Z",
-  "Windows Autopilot device preparation::Initial release of Windows Autopilot device preparation": "2024-06-03T00:00:00.000Z"
+  "Windows Autopilot device preparation::Initial release of Windows Autopilot device preparation": "2024-06-03T00:00:00.000Z",
+  "Intune::Stage app and policy rollout with deployment plans": "2026-09-21T00:00:00.000Z"
 }
