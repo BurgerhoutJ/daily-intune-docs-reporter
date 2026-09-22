@@ -122,6 +122,14 @@ const WHATS_NEW_SOURCES = [
     docsUrl: 'https://learn.microsoft.com/en-us/entra/fundamentals/whats-new',
     itemHeadingLevel: 3,
   },
+  {
+    // Windows 365 docs have no public GitHub mirror (MicrosoftDocs/windows365
+    // 404s), so this source is live-page-fallback only — repo/path are left
+    // unset and collectWhatsNewItems() skips the commit-diff step for it.
+    label: 'Windows 365 Link',
+    docsUrl: 'https://learn.microsoft.com/en-us/windows-365/link/whats-new',
+    itemHeadingLevel: 3,
+  },
 ];
 
 const GITHUB_API = 'https://api.github.com';
@@ -260,6 +268,7 @@ function stripHtml(html) {
   return html
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
@@ -280,8 +289,9 @@ const BOILERPLATE_HEADING_TEXT = /^(in this article|related content|feedback|add
 /** Parse a "Week of <date>" / "<Month> <Year>" period heading, or a "Date added: <date>" line in the body. */
 function parseSectionDate(period, bodyText) {
   if (period) {
-    let m = period.match(/Week of ([A-Za-z]+ \d{1,2}, \d{4})/i);
-    if (m) return new Date(`${m[1]} UTC`);
+    // Handles both "Week of September 21, 2026" and "Week of September 8th, 2026".
+    let m = period.match(/Week of\s+([A-Za-z]+ \d{1,2})(?:st|nd|rd|th)?,?\s*(\d{4})/i);
+    if (m) return new Date(`${m[1]} ${m[2]} UTC`);
     m = period.match(/^([A-Za-z]+)\s+(\d{4})$/);
     if (m) return new Date(`${m[1]} 1, ${m[2]} UTC`);
   }
@@ -289,6 +299,18 @@ function parseSectionDate(period, bodyText) {
   if (m2) return new Date(`${m2[1].replace(',', '')} UTC`);
   return null;
 }
+
+// Matches a period/grouping heading by TEXT rather than heading level, since
+// some pages (Windows 365 Link) put the "Week of ..." heading at the same
+// level as the items themselves instead of one level above them.
+const PERIOD_HEADING_PATTERN = /^Week of\s+[A-Za-z]+\s+\d{1,2}(?:st|nd|rd|th)?,?\s*\d{4}\b|^[A-Za-z]+\s+\d{4}$/i;
+
+// Bare category labels that occasionally sit at the same heading level as
+// real items, with their own (real) item nested one level deeper — e.g.
+// Windows 365 Link's "Documentation" > "New documentation article: ...".
+// The nested item itself is missed, which is an acceptable gap for a
+// fallback source; what matters is not reporting the bare label as an item.
+const GENERIC_CATEGORY_TITLES = /^(documentation)$/i;
 
 /**
  * Parse "what's new" entries out of a rendered docs page. `itemHeadingLevel`
@@ -312,9 +334,16 @@ function parseWhatsNewLivePage(html, itemHeadingLevel) {
   const items = [];
   let currentH2 = null;
   let currentH3 = null;
+  let currentPeriod = null;
 
   for (let i = 0; i < headings.length; i++) {
     const h = headings[i];
+
+    if (PERIOD_HEADING_PATTERN.test(h.text)) {
+      currentPeriod = h.text;
+      continue; // a period heading is never itself an item, whatever level it's at
+    }
+
     if (h.level === 2) {
       currentH2 = h.text;
       currentH3 = null;
@@ -322,8 +351,8 @@ function parseWhatsNewLivePage(html, itemHeadingLevel) {
     if (h.level === 3) currentH3 = h.text;
     if (h.level !== itemHeadingLevel) continue;
 
-    const period = itemHeadingLevel >= 3 ? currentH2 : null;
-    if (period && /^notices$/i.test(period)) continue; // long-lived plan-for-change notices, not weekly items
+    if (currentH2 && /^notices$/i.test(currentH2)) continue; // long-lived plan-for-change notices, not weekly items
+    if (GENERIC_CATEGORY_TITLES.test(h.text.trim())) continue;
     const category = itemHeadingLevel >= 4 ? currentH3 : '';
 
     const nextStart = i + 1 < headings.length ? headings[i + 1].index : html.length;
@@ -332,8 +361,8 @@ function parseWhatsNewLivePage(html, itemHeadingLevel) {
     items.push({
       title: h.text,
       parentCategory: category || '',
-      period,
-      date: parseSectionDate(period, bodyText),
+      period: currentPeriod,
+      date: parseSectionDate(currentPeriod, bodyText),
     });
   }
   return items;
@@ -394,18 +423,22 @@ async function collectWhatsNewItems(window, seenState) {
   const items = [];
 
   for (const source of WHATS_NEW_SOURCES) {
-    console.log(`  Checking ${source.label}: ${source.repo}/${source.path}`);
     const sourceItems = [];
     let commits = [];
-    try {
-      commits = await getCommitsForFile(source.repo, source.path, source.branch, window.start, window.end);
-    } catch (err) {
-      console.warn(`    Skipping ${source.label}: ${err.message}`);
+    if (source.repo && source.path) {
+      console.log(`  Checking ${source.label}: ${source.repo}/${source.path}`);
+      try {
+        commits = await getCommitsForFile(source.repo, source.path, source.branch, window.start, window.end);
+      } catch (err) {
+        console.warn(`    Skipping ${source.label}: ${err.message}`);
+      }
+    } else {
+      console.log(`  Checking ${source.label}: no GitHub mirror configured — live page only.`);
     }
 
-    if (commits.length === 0) {
+    if (source.repo && source.path && commits.length === 0) {
       console.log(`    No commits found in window.`);
-    } else {
+    } else if (commits.length > 0) {
       console.log(`    Found ${commits.length} commit(s).`);
     }
 
