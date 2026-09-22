@@ -27,6 +27,7 @@ title: Home
   <button class="filter-btn" data-filter="intune">Intune</button>
   <button class="filter-btn" data-filter="entra">Entra</button>
   <button class="filter-btn" data-filter="autopilot">Autopilot</button>
+  <button class="filter-btn" data-filter="w365link">Windows 365 Link</button>
 </div>
 
 {% for post in report_posts %}
@@ -58,12 +59,11 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
         card.querySelectorAll('h2').forEach(h2 => { let el = h2; while ((el = el.nextElementSibling) && el.tagName !== 'H2') el.style.display = ''; h2.style.display = ''; });
         return;
       }
+      const filterPrefixes = { intune: 'intune', entra: 'microsoft entra', autopilot: 'windows autopilot', w365link: 'windows 365 link' };
       let hasVisible = false;
       card.querySelectorAll('h2').forEach(h2 => {
         const text = h2.textContent.toLowerCase();
-        const match = filter === 'intune' ? text.startsWith('intune')
-          : filter === 'entra' ? text.startsWith('microsoft entra')
-          : text.startsWith('windows autopilot');
+        const match = text.startsWith(filterPrefixes[filter]);
         h2.style.display = match ? '' : 'none';
         let el = h2;
         while ((el = el.nextElementSibling) && el.tagName !== 'H2') el.style.display = match ? '' : 'none';
