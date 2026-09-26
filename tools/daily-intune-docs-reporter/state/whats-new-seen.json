@@ -262,5 +262,19 @@
   "Windows 365 Link::New build released: Windows 365 Link July Quality Update version 26100.4652": "2025-07-07T00:00:00.000Z",
   "Windows 365 Link::New build released: Windows 365 Link June Quality Update version 26100.4349": "2025-06-09T00:00:00.000Z",
   "Windows 365 Link::New build released": "2025-04-07T00:00:00.000Z",
-  "Windows 365 Link::Windows 365 Link now generally available": "2025-03-31T00:00:00.000Z"
+  "Windows 365 Link::Windows 365 Link now generally available": "2025-03-31T00:00:00.000Z",
+  "Intune::Microsoft Cloud PKI support for US Government GCC High": "2026-09-28T00:00:00.000Z",
+  "Intune::Faster delivery of Win32 apps": "2026-09-28T00:00:00.000Z",
+  "Intune::Require Managed Home Screen authentication for protected app activities": "2026-09-28T00:00:00.000Z",
+  "Intune::Faster Win32 app delivery after Windows enrollment": "2026-09-28T00:00:00.000Z",
+  "Intune::New Apple settings in the Settings Catalog for iOS/iPadOS and macOS": "2026-09-28T00:00:00.000Z",
+  "Intune::Assignment filters for Android Settings Catalog policies": "2026-09-28T00:00:00.000Z",
+  "Intune::Automatically launch Microsoft Defender for Endpoint during Android Enterprise device setup": "2026-09-28T00:00:00.000Z",
+  "Intune::Skip the Device Features Tour during Apple enrollment": "2026-09-28T00:00:00.000Z",
+  "Intune::Upgrade an existing Android Enterprise connection to a managed Google domain": "2026-09-28T00:00:00.000Z",
+  "Intune::Bulk manage eSIMs on corporate-owned Android Enterprise devices": "2026-09-28T00:00:00.000Z",
+  "Intune::Updated minimum supported version for iOS and iPadOS": "2026-09-28T00:00:00.000Z",
+  "Intune::New single device page becomes the default experience in the Intune admin center": "2026-09-28T00:00:00.000Z",
+  "Intune::Configure MDE AI agent runtime protection for Windows": "2026-09-28T00:00:00.000Z",
+  "Intune::Onboard MDM compliance partners with new self-service functionality": "2026-09-28T00:00:00.000Z"
 }
