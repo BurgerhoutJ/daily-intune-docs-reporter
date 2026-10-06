@@ -276,5 +276,8 @@
   "Intune::Updated minimum supported version for iOS and iPadOS": "2026-09-28T00:00:00.000Z",
   "Intune::New single device page becomes the default experience in the Intune admin center": "2026-09-28T00:00:00.000Z",
   "Intune::Configure MDE AI agent runtime protection for Windows": "2026-09-28T00:00:00.000Z",
-  "Intune::Onboard MDM compliance partners with new self-service functionality": "2026-09-28T00:00:00.000Z"
+  "Intune::Onboard MDM compliance partners with new self-service functionality": "2026-09-28T00:00:00.000Z",
+  "Intune::Intune security baseline for Windows 11, version 26H2": "2026-10-05T00:00:00.000Z",
+  "Intune::Remote Help support for GCCH environments": "2026-09-28T00:00:00.000Z",
+  "Intune::Windows 11, version 26H2 Settings Catalog update": "2026-09-28T00:00:00.000Z"
 }
