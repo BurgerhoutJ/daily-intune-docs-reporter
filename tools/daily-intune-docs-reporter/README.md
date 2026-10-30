@@ -10,7 +10,7 @@ daily GitHub issue.
 
 - Node.js 18+ (uses native `fetch`; no dependencies to install)
 - A `GITHUB_TOKEN` environment variable is required in the script runtime
-  to read commits on the source repos and to publish issues.
+  to publish issues.
 - In GitHub Actions, the built-in `github.token` is the preferred option
   because the workflow grants the required `issues: write` and `contents: write`
   permissions.
@@ -43,7 +43,7 @@ must have Issues read/write permission on the target repository.
 | `LOOKBACK_HOURS` | `24` | Size of the report window in hours |
 | `TZ_REPORT` | `Europe/Amsterdam` | Timezone for window boundaries, timestamps, and issue titles |
 | `OUTPUT_DIR` | `./out` | Where artifacts are written |
-| `GITHUB_TOKEN` | - | Auth token for the GitHub API (reads source repos + publishes issues) |
+| `GITHUB_TOKEN` | - | Auth token for the GitHub API (publishes issues) |
 | `GITHUB_REPOSITORY` | - | `owner/repo` to publish the issue into (only needed with `--publish`) |
 
 ## How it works

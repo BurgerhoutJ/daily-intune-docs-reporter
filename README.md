@@ -137,9 +137,9 @@ This is currently a **manual** repository setting; it changes
 repository-level settings, so it's not something this workflow can
 reliably automate with the default `GITHUB_TOKEN`.
 
-### A source repo fails to respond
+### A source page fails to respond
 
-If one of the source repos is temporarily unreachable or returns an error,
+If one of the source pages is temporarily unreachable or returns an error,
 the run logs the failure and skips just that source rather than failing the
 whole report - you'll see items from the other sources as usual, just
 missing that one product for the day.

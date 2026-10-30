@@ -2,23 +2,17 @@
 /**
  * Daily Intune & Entra Docs Reporter
  * -------------------------------------------------------------------------
- * Generates a strict 24-hour (configurable) report of changes to Microsoft's
- * "What's new" markdown files for Intune, Windows Autopilot, and Windows 365
- * by checking the git diff on the source repositories via the GitHub API,
- * then publishes a digest as a daily GitHub issue.
- *
- * For each tracked source file, the script:
- *   1. Queries the GitHub commits API for commits within the report window
- *   2. Fetches the patch (diff) for each commit
- *   3. Extracts added markdown headings and their descriptions
+ * Generates a report of new entries on Microsoft's "What's new" pages for
+ * Intune, Windows Autopilot, Microsoft Entra and Windows 365 Link by reading
+ * the live learn.microsoft.com pages and diffing them against a persisted
+ * "seen" list, then publishes a digest as a daily GitHub issue.
  *
  * Usage:
  *   node report.mjs                # generate report files only
  *   node report.mjs --publish      # generate + create/update the daily issue
  *
  * Required env vars:
- *   GITHUB_TOKEN        - token with repo read access on the source repos
- *                          AND issues:write on the target repo (for --publish)
+ *   GITHUB_TOKEN        - token with issues:write on the target repo (for --publish)
  *
  * Optional env vars:
  *   LOOKBACK_HOURS       - size of the report window in hours (default: 24)
@@ -80,8 +74,8 @@ async function saveSeenState(name, state) {
   await writeFile(file, `${JSON.stringify(merged, null, 2)}\n`, 'utf8');
 }
 
-// Source markdown files tracked for the report. Each entry specifies the
-// GitHub repo, file path, branch, and a public URL base for linking.
+// "What's new" pages tracked for the report. Each entry specifies the live
+// docs page URL.
 //
 // `itemHeadingLevel` describes the HTML heading level that marks an
 // individual "what's new" entry on the live docs page (used by the live-page
@@ -91,41 +85,26 @@ async function saveSeenState(name, state) {
 // no further grouping.
 const WHATS_NEW_SOURCES = [
   {
-    repo: 'MicrosoftDocs/memdocs',
-    path: 'intune/whats-new/index.md',
-    branch: 'main',
     label: 'Intune',
     docsUrl: 'https://learn.microsoft.com/en-us/intune/whats-new/',
     itemHeadingLevel: 4,
   },
   {
-    repo: 'MicrosoftDocs/memdocs',
-    path: 'autopilot/whats-new.md',
-    branch: 'main',
     label: 'Windows Autopilot',
     docsUrl: 'https://learn.microsoft.com/en-us/autopilot/whats-new',
     itemHeadingLevel: 2,
   },
   {
-    repo: 'MicrosoftDocs/memdocs',
-    path: 'autopilot/device-preparation/whats-new.md',
-    branch: 'main',
     label: 'Windows Autopilot device preparation',
     docsUrl: 'https://learn.microsoft.com/en-us/autopilot/device-preparation/whats-new',
     itemHeadingLevel: 2,
   },
   {
-    repo: 'MicrosoftDocs/entra-docs',
-    path: 'docs/fundamentals/whats-new.md',
-    branch: 'main',
     label: 'Microsoft Entra',
     docsUrl: 'https://learn.microsoft.com/en-us/entra/fundamentals/whats-new',
     itemHeadingLevel: 3,
   },
   {
-    // Windows 365 docs have no public GitHub mirror (MicrosoftDocs/windows365
-    // 404s), so this source is live-page-fallback only — repo/path are left
-    // unset and collectWhatsNewItems() skips the commit-diff step for it.
     label: 'Windows 365 Link',
     docsUrl: 'https://learn.microsoft.com/en-us/windows-365/link/whats-new',
     itemHeadingLevel: 3,
@@ -192,77 +171,11 @@ function computeWindow(now, tz, lookbackHours) {
 }
 
 // ---------------------------------------------------------------------------
-// Diff-based data collection
-// ---------------------------------------------------------------------------
-
-async function getCommitsForFile(repo, filePath, branch, since, until) {
-  const params = new URLSearchParams({
-    sha: branch,
-    path: filePath,
-    since: since.toISOString(),
-    until: until.toISOString(),
-    per_page: '100',
-  });
-  const url = `${GITHUB_API}/repos/${repo}/commits?${params}`;
-  return await ghFetch(url);
-}
-
-async function getCommitPatch(repo, sha, filePath) {
-  const url = `${GITHUB_API}/repos/${repo}/commits/${sha}`;
-  try {
-    const commit = await ghFetch(url);
-    const file = (commit.files || []).find((f) => f.filename === filePath);
-    return file?.patch || '';
-  } catch (err) {
-    console.error(`Failed to get patch for ${repo}@${sha}: ${err.message}`);
-    return '';
-  }
-}
-
-/** Extract added markdown headings and their first paragraph from a unified diff patch. */
-function parseAddedSectionsFromPatch(patch) {
-  const items = [];
-  const lines = patch.split('\n');
-  let currentHeading = null;
-  let currentBody = [];
-  let currentParentCategory = '';
-
-  for (const line of lines) {
-    if (!line.startsWith('+') || line.startsWith('+++')) continue;
-    const content = line.slice(1);
-
-    const headingMatch = content.match(/^(#{2,4})\s+(.+)$/);
-    if (headingMatch) {
-      if (currentHeading) {
-        items.push({ level: currentHeading.level, title: currentHeading.title, body: currentBody.join(' ').trim(), parentCategory: currentHeading.parentCategory });
-      }
-      const level = headingMatch[1].length;
-      if (level === 3) currentParentCategory = headingMatch[2].trim();
-      currentHeading = { level, title: headingMatch[2].trim(), parentCategory: level === 4 ? currentParentCategory : '' };
-      currentBody = [];
-      continue;
-    }
-
-    if (currentHeading && content.trim()) {
-      currentBody.push(content.trim());
-    }
-  }
-  if (currentHeading) {
-    items.push({ level: currentHeading.level, title: currentHeading.title, body: currentBody.join(' ').trim(), parentCategory: currentHeading.parentCategory });
-  }
-  return items;
-}
-
-// ---------------------------------------------------------------------------
-// Live-page fallback (used when the GitHub source mirror hasn't synced yet)
+// Live-page collection
 // ---------------------------------------------------------------------------
 //
-// MicrosoftDocs' public GitHub mirrors occasionally fall behind the live
-// learn.microsoft.com pages by days or weeks (the docs are authored and
-// published from an internal branch first). When that happens the
-// commit-diff collector above legitimately finds nothing, even though the
-// live page has moved on. As a fallback, fetch the rendered page directly
-// and diff its current items against a persisted "seen" list.
+// Fetch each rendered "what's new" page directly and diff its current items
+// against a persisted "seen" list.
 
 function stripHtml(html) {
   return html
@@ -416,102 +329,15 @@ async function collectWhatsNewLiveFallback(source, seenState) {
 }
 
 async function collectWhatsNewItems(window, seenState) {
-  if (!GITHUB_TOKEN) {
-    console.warn('Warning: No GITHUB_TOKEN set. Unauthenticated requests are rate-limited to 60/hr and cannot access private repos.');
-  }
-
   const items = [];
 
   for (const source of WHATS_NEW_SOURCES) {
-    const sourceItems = [];
-    let commits = [];
-    if (source.repo && source.path) {
-      console.log(`  Checking ${source.label}: ${source.repo}/${source.path}`);
-      try {
-        commits = await getCommitsForFile(source.repo, source.path, source.branch, window.start, window.end);
-      } catch (err) {
-        console.warn(`    Skipping ${source.label}: ${err.message}`);
-      }
-    } else {
-      console.log(`  Checking ${source.label}: no GitHub mirror configured — live page only.`);
-    }
-
-    if (source.repo && source.path && commits.length === 0) {
-      console.log(`    No commits found in window.`);
-    } else if (commits.length > 0) {
-      console.log(`    Found ${commits.length} commit(s).`);
-    }
-
-    const seen = new Set();
-
-    for (const commit of commits) {
-      const patch = await getCommitPatch(source.repo, commit.sha, source.path);
-      if (!patch) continue;
-
-      const sections = parseAddedSectionsFromPatch(patch);
-      const commitDate = commit.commit.committer.date || commit.commit.author.date;
-
-      for (const section of sections) {
-        // Skip structural headings
-        if (/^week of /i.test(section.title)) continue;
-        if (/^notices$/i.test(section.title)) continue;
-        // Skip category-level headings (e.g. "Device configuration", "App management")
-        if (section.level <= 3 && !section.body) continue;
-        const knownCategories = /^(app management|device configuration|device enrollment|device management|device security|intune apps|monitor and troubleshoot|role-based access control|tenant administration|scripts)$/i;
-        if (section.level === 3 && knownCategories.test(section.title)) continue;
-
-        const key = itemKey(source.label, section.title);
-        if (seen.has(key)) continue;
-        seen.add(key);
-
-        // Extract sub-category from title prefix (e.g. "General Availability - ...")
-        let subCategory = section.parentCategory || '';
-        if (!subCategory) {
-          const prefixMatch = section.title.match(/^(General Availability|Public Preview|Change Announcement|Retirement)\s*[-—–:]\s*/i);
-          if (prefixMatch) subCategory = prefixMatch[1];
-        }
-
-        const anchor = section.title
-          .toLowerCase()
-          .replace(/[^\w\s-]/g, '')
-          .replace(/\s+/g, '-');
-
-        sourceItems.push({
-          category: source.label,
-          subCategory,
-          title: section.title,
-          url: `${source.docsUrl}#${anchor}`,
-          commitUrl: commit.html_url,
-          commitDate,
-          dateLabel: new Date(commitDate).toLocaleDateString('en-GB', {
-            timeZone: TZ,
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-          }),
-        });
-      }
-    }
-
-    // Mark everything the diff-based method found so the live-page fallback
-    // (or tomorrow's run of it) never re-reports the same item.
-    for (const item of sourceItems) {
-      const key = itemKey(item.category, item.title);
-      if (!seenState.data[key]) seenState.touched[key] = item.commitDate;
-    }
-    items.push(...sourceItems);
-
+    console.log(`  Checking ${source.label}: ${source.docsUrl}`);
     const liveItems = await collectWhatsNewLiveFallback(source, seenState);
-    const knownKeys = new Set(sourceItems.map((item) => itemKey(item.category, item.title)));
-    for (const item of liveItems) {
-      const key = itemKey(item.category, item.title);
-      if (knownKeys.has(key)) continue;
-      knownKeys.add(key);
-      items.push(item);
-    }
     if (liveItems.length > 0) {
-      console.log(`    Live-page fallback found ${liveItems.length} additional item(s) for ${source.label}.`);
+      console.log(`    Found ${liveItems.length} new item(s) for ${source.label}.`);
     }
+    items.push(...liveItems);
   }
 
   items.sort((a, b) => a.category.localeCompare(b.category) || (a.subCategory || '').localeCompare(b.subCategory || '') || a.title.localeCompare(b.title));
@@ -755,7 +581,7 @@ function renderJson(items, window, reportDateYmd) {
         timezone: TZ,
         lookbackHours: LOOKBACK_HOURS,
       },
-      sources: WHATS_NEW_SOURCES.map((s) => ({ repo: s.repo, path: s.path, label: s.label })),
+      sources: WHATS_NEW_SOURCES.map((s) => ({ label: s.label, docsUrl: s.docsUrl })),
       itemCount: items.length,
       items: items.map((i) => ({
         category: i.category,
@@ -806,7 +632,7 @@ async function main() {
   const window = computeWindow(now, TZ, LOOKBACK_HOURS);
 
   console.log(
-    `Collecting What's New items from markdown diffs: ${window.start.toISOString()} → ${window.end.toISOString()} (${TZ})`
+    `Collecting What's New items from live docs pages: ${window.start.toISOString()} → ${window.end.toISOString()} (${TZ})`
   );
 
   const docsSeenState = await loadSeenState('whats-new-seen.json');
