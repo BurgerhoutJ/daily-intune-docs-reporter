@@ -282,5 +282,18 @@
   "Intune::Windows 11, version 26H2 Settings Catalog update": "2026-09-28T00:00:00.000Z",
   "Windows 365 Link::New build released: Windows 365 Link October Quality Update version 26200.9711": "2026-10-12T00:00:00.000Z",
   "Intune::Improved on-demand device sync for Windows & iOS/iPadOS devices": "2026-07-27T00:00:00.000Z",
-  "Intune::Unlimited licenses for Apple volume purchase program (VPP) apps": "2026-10-19T00:00:00.000Z"
+  "Intune::Unlimited licenses for Apple volume purchase program (VPP) apps": "2026-10-19T00:00:00.000Z",
+  "Intune::Manage referenced apps on AOSP devices": "2026-10-26T00:00:00.000Z",
+  "Intune::Enforce Routes capability in Apple VPN profiles": "2026-10-26T00:00:00.000Z",
+  "Intune::Legacy Apple MDM software update workloads removed from Intune": "2026-10-26T00:00:00.000Z",
+  "Intune::Add support for the MEFERI OEMConfig app on Android Enterprise": "2026-10-26T00:00:00.000Z",
+  "Intune::Setup Assistant legacy deprecation for Apple enrollment profiles": "2026-10-26T00:00:00.000Z",
+  "Intune::Administrator protection settings in Account protection policies": "2026-10-26T00:00:00.000Z",
+  "Intune::Push notification support update for Windows devices": "2026-10-26T00:00:00.000Z",
+  "Intune::Apple OS 27 DDM status data added to device inventory": "2026-10-26T00:00:00.000Z",
+  "Intune::Updated Windows support for Administrator protection settings": "2026-10-26T00:00:00.000Z",
+  "Intune::Agent runtime protection settings are generally available": "2026-10-26T00:00:00.000Z",
+  "Intune::Certificate connector health monitoring in the Microsoft Intune admin center": "2026-10-26T00:00:00.000Z",
+  "Intune::Scoped permissions for role-based access control are generally available": "2026-10-26T00:00:00.000Z",
+  "Intune::Faster delivery of Windows scripts": "2026-10-26T00:00:00.000Z"
 }
