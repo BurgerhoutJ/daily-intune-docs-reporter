@@ -295,5 +295,8 @@
   "Intune::Agent runtime protection settings are generally available": "2026-10-26T00:00:00.000Z",
   "Intune::Certificate connector health monitoring in the Microsoft Intune admin center": "2026-10-26T00:00:00.000Z",
   "Intune::Scoped permissions for role-based access control are generally available": "2026-10-26T00:00:00.000Z",
-  "Intune::Faster delivery of Windows scripts": "2026-10-26T00:00:00.000Z"
+  "Intune::Faster delivery of Windows scripts": "2026-10-26T00:00:00.000Z",
+  "Intune::STIG audit baselines for Windows devices in commercial tenants": "2026-10-26T00:00:00.000Z",
+  "Windows Autopilot::Block on Enterprise App Management auto-update apps during the Enrollment Status Page": "2026-10-29T00:00:00.000Z",
+  "Windows Autopilot device preparation::Block on Enterprise App Management auto-update apps in Windows Autopilot device preparation policies": "2026-10-29T00:00:00.000Z"
 }
